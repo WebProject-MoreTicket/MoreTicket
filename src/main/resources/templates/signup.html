@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+<h1>티켓모아 회원가입</h1>
+
+<!-- 회원가입 성공 메시지 표시 -->
+<div th:if="${message}" style="color:green;">
+    <p th:text="${message}"></p>
+</div>
+
+<form action="/auth/signup" method="post">
+
+    <label for="id">ID:</label><br>
+    <input type="text" id="id" name="id" required><br><br>
+
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="phone">Phone Number:</label><br>
+    <input type="tel" id="phone" name="phone" placeholder="010 1234 5678" pattern="[0-9\s]{11,13}"><br><br>
+
+    <label for="birthday">Birthday:</label><br>
+    <input type="date" id="birthday" name="birthday" required><br><br>
+
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male" required>
+    <label for="male">Male</label> &nbsp;
+    <input type="radio" id="female" name="gender" value="female" required>
+    <label for="female">Female</label><br><br>
+
+    <button type="submit">Sign Up</button>
+</form>
+
+
+<script>
+    // 입력값에서 숫자와 공백만 남기고 나머지는 제거
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function (event) {
+        this.value = this.value.replace(/[^0-9\s]/g, '');
+    });
+</script>
+</body>
+</html>
+
+
+<!-- 아이디 비밀번호 이름 생일 성별 휴대폰 이메일 -->
