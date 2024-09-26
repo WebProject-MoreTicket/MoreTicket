@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>예매 티켓</title>
+</head>
+<body>
+<h2>티켓 예매 정보</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>날짜</th>
+        <th>좌석 등급</th>
+        <th>가격</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.date}">2024-09-21</td>
+        <td th:text="${ticket.grade}">A석</td>
+        <td th:text="${ticket.price}">50000</td>
+    </tr>
+    </tbody>
+</table>
+
+<button onclick="location.href='/mypage'">뒤로 가기</button>
+</body>
+</html>

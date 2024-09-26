@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>로그인</title>
 </head>
 <body>
 
-<h1>Login</h1>
+<h1>티켓모아 로그인</h1>
 
-<!-- 로그인 실패시 -->
+<!-- 로그인 실패 메시지 표시 -->
 <div th:if="${error}" style="color:red;">
     <p th:text="${error}"></p>
 </div>
 
-<form action="/auth/login" method="post">
-    <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id" required><br><br>
+<form action="/login" method="post">
+    <label for="userId">User ID:</label><br>
+    <input type="text" id="userId" name="userId" required><br><br>
 
     <label for="password">Password:</label><br>
     <input type="password" id="password" name="password" required><br><br>

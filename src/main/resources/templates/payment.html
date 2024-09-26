@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>결제하기</title>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+</head>
+<body>
+<h2>결제 진행하기</h2>
+
+<p>선택한 좌석: [[${seatGrade}]] 등급</p>
+<p>선택한 날짜: [[${selectedDate}]]</p> <!-- 선택한 날짜 표시 -->
+<p>결제 금액: [[${amount}]]원</p>
+<button id="payBtn">결제 진행</button>
+
+<script>
+    let IMP = window.IMP; // IMP 객체를 전역으로 설정
+    IMP.init("[[${shortWeatherKey}]]"); // 숨긴 API 키로 초기화
+
+    function requestPay(amount, grade, selectedDate) {
+        IMP.request_pay({
+            pg: 'kakaopay', // PG로 카카오페이 설정
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '좌석 예매 - ' + grade + ' 등급',
+            amount: amount,
+            buyer_email: 'buyer@example.com',
+            buyer_name: '구매자',
+            buyer_tel: '010-1234-5678',
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456',
+            custom_data: { selectedDate: selectedDate }  // 선택한 날짜를 추가로 넘김
+        }, function (rsp) {
+            if (rsp.success) {
+                // 결제 성공 시 로직 추가
+                alert('티켓 예매가 완료되었습니다. 선택한 날짜: ' + selectedDate);
+                location.href = "/mypage";
+            } else {
+                // 결제 실패 시 로직 추가
+                alert('결제가 실패하였습니다. 오류 메시지: ' + rsp.error_msg);
+            }
+        });
+    }
+
+    // 결제 버튼 클릭 이벤트 핸들러
+    document.getElementById("payBtn").addEventListener("click", function () {
+        const grade = "[[${seatGrade}]]";
+        const amount = [[${amount}]]; // Thymeleaf 바인딩
+        const selectedDate = "[[${selectedDate}]]"; // 선택한 날짜 Thymeleaf 바인딩
+        requestPay(amount, grade, selectedDate); // 선택한 날짜 전달
+    });
+</script>
+</body>
+</html>

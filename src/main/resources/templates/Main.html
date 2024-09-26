@@ -4,299 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>모아티켓</title>
-    <style>
-        .logo-container {
-        display: flex;
-        align-items: center;
-        }
-
-
-
-        .logo-container img {
-            width: 200px; /* 이미지 크기를 조정 */
-            height: 30px;
-            height: auto;
-        }
-
-        .func-btn {
-          position: fixed;   /* 화면에 고정 */
-          right: 50px;       /* 오른쪽에서 20px 떨어지게 설정 */
-          top: 70px;         /* 상단에서 20px 떨어지게 설정 */
-
-        }
-
-        .func-btn a {
-              color: black;         /* 링크 색상을 검은색으로 고정 */
-              text-decoration: none; /* 밑줄 제거 */
-              margin: 5px;
-              
-          }
-
-          .func-btn a:hover,
-          .func-btn a:visited,
-          .func-btn a:active {
-              color: black;         /* 링크 상태에 상관없이 항상 검은색 유지 */
-          }
-          
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: white;
-            padding: 20px;
-            color: black;
-            text-align: center;
-        }
-        header h1 {
-          text-align: right;
-            margin: 0;
-            font-size: 24px;
-        }
-        nav {
-            background-color: white;
-            padding: 10px;
-            text-align: left;
-        }
-        nav a {
-            
-            color: black;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 20px;
-        }
-        .event {
-            background-color: white;
-            padding: 20px;
-            margin: 10px;
-            width: 300px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .event img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .event h2 {
-            font-size: 18px;
-            margin: 15px 0;
-        }
-        .event p {
-            font-size: 14px;
-            color: #666;
-        }
-        footer {
-            background-color: #f1e863;
-            color: black;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-
-        .slider__wrap {
-    position: relative;
-    width: 100%; /* 슬라이더가 부모 요소의 너비를 100% 차지하도록 설정 */
-    max-width: 800px; /* 슬라이더의 최대 너비를 설정 */
-    height: 450px; /* 슬라이더의 높이 설정 */
-    overflow: hidden;
-    margin: auto; /* 중앙 정렬 */
-}
-
-.slider__img {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.slider__inner {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.slider {
-    min-width: 100%;
-    height: 100%;
-}
-
-.slider img {
-    width: 100%; /* 이미지의 너비를 슬라이더 너비에 맞게 설정 */
-    height: 100%; /* 이미지의 높이를 슬라이더 높이에 맞게 설정 */
-    object-fit: cover; /* 이미지가 슬라이더를 가득 채우도록 설정 */
-}
-        .slider__btn a {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.4);
-            color: #fff;
-            text-align: center;
-            line-height: 50px;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        .slider__btn a.prev {
-            left: 10px;
-        }
-        .slider__btn a.next {
-            right: 10px;
-        }
-        .slider__btn a:hover {
-            background: rgba(38, 52, 103, 0.6);
-        }
-        .slider__dot {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .slider__dot .dot {
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            display: inline-block;
-            border-radius: 50%;
-            margin: 2px;
-            transition: background 0.3s;
-        }
-
-        .slider__dot .dot.active {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-    </style>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const sliderWrap = document.querySelector(".slider__wrap");
-    const sliderImg = document.querySelector(".slider__img");
-    const sliderInner = document.querySelector(".slider__inner");
-    const sliders = document.querySelectorAll(".slider");
-    const sliderBtnPrev = document.querySelector(".prev");
-    const sliderBtnNext = document.querySelector(".next");
-    const sliderDot = document.querySelector(".slider__dot");
-
-    let currentIndex = 0;
-    const sliderCount = sliders.length;
-    const sliderWidth = sliderImg.offsetWidth;
-
-    // 슬라이더 초기 위치를 중앙으로 설정
-    function setInitialPosition() {
-        sliderInner.style.transform = `translateX(${-sliderWidth * currentIndex}px)`;
-    }
-
-    // 닷 메뉴 생성
-    function createDots() {
-        sliders.forEach((_, index) => {
-            const dot = document.createElement("a");
-            dot.href = "#";
-            dot.className = "dot";
-            if (index === 0) dot.classList.add("active");
-            sliderDot.appendChild(dot);
-        });
-    }
-
-    createDots();
-    setInitialPosition(); // 초기 위치 설정
-
-    // 슬라이더 이동
-    function gotoSlider(index) {
-        sliderInner.style.transform = `translateX(${-sliderWidth * index}px)`;
-        currentIndex = index;
-
-        // 닷 메뉴 활성화
-        const dots = document.querySelectorAll(".slider__dot .dot");
-        dots.forEach(dot => dot.classList.remove("active"));
-        dots[currentIndex].classList.add("active");
-    }
-
-    sliderBtnPrev.addEventListener("click", () => {
-        const prevIndex = (currentIndex - 1 + sliderCount) % sliderCount;
-        gotoSlider(prevIndex);
-    });
-
-    sliderBtnNext.addEventListener("click", () => {
-        const nextIndex = (currentIndex + 1) % sliderCount;
-        gotoSlider(nextIndex);
-    });
-
-    document.querySelectorAll(".slider__dot .dot").forEach((dot, index) => {
-        dot.addEventListener("click", (e) => {
-            e.preventDefault();
-            gotoSlider(index);
-        });
-    });
-});
-
-
-
-
-    </script>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/script/main.js"></script>
 </head>
 <body>
 
 <header>
-  <div class="logo-container">
-  <a href="main.html">
-    <img src="#" alt="logo">
-</a>
-</div>
-<div class="func-btn">
-<a href="#">로그인</a>
-<a href="#">회원가입</a>
-<a href="#">마이페이지</a>
-   </div>
+    <div class="logo-container">
+        <a href="/">
+            <img src="/images/logo.jpg" alt="logo">
+        </a>
+    </div>
+    <div class="func-btn">
+        <!-- 로그인 안하면 로그인과 회원가입이 보임 -->
+        <div th:if="${session.loggedInUser == null}">
+            <a href="/login">로그인</a>
+            <a href="/signup">회원가입</a>
+        </div>
+
+        <!-- 로그인 하면 로그인한 유저의 이름과 마이페이지, 로그아웃 보임 -->
+        <div th:if="${session.loggedInUser != null}">
+            <span th:text="'환영합니다 , ' + ${session.loggedInUser.username} + '!'"></span>
+            <a href="mypage">마이페이지</a>
+            <a href="/logout">로그아웃</a>
+        </div>
+    </div>
 </header>
 
 <nav>
     <a href="#">공연</a>
-    <a href="#">스포츠</a>
+    <a href="Sports">스포츠</a>
     <a href="#">전시/행사</a>
     <a href="#">영화</a>
 </nav>
 
 <section id="sliderType05">
-  <div class="slider__wrap">
-      <div class="slider__img">
-          <div class="slider__inner">
-              <div class="slider" role="group" aria-label="1/5">
-                  <img src="#" alt="이미지6">
-              </div>
-              <div class="slider" role="group" aria-label="2/5">
-                  <img src="#" alt="이미지7">
-              </div>
-              <div class="slider" role="group" aria-label="3/5">
-                  <img src="#" alt="이미지8">
-              </div>
-              <div class="slider" role="group" aria-label="4/5">
-                  <img src="#" alt="이미지9">
-              </div>
-              <div class="slider" role="group" aria-label="5/5">
-                  <img src="#" alt="이미지10">
+    <div class="slider__wrap">
+        <div class="slider__img">
+            <div class="slider__inner">
+                <div class="slider" role="group" aria-label="1/5">
+                    <img src="#" alt="이미지6">
                 </div>
-              </div>
-          </div>
-          <div class="slider__btn">
-              <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
-              <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
-          </div>
-          <div class="slider__dot"></div>
-      </div>
-  </section>
+                <div class="slider" role="group" aria-label="2/5">
+                    <img src="#" alt="이미지7">
+                </div>
+                <div class="slider" role="group" aria-label="3/5">
+                    <img src="#" alt="이미지8">
+                </div>
+                <div class="slider" role="group" aria-label="4/5">
+                    <img src="#" alt="이미지9">
+                </div>
+                <div class="slider" role="group" aria-label="5/5">
+                    <img src="#" alt="이미지10">
+                </div>
+            </div>
+        </div>
+        <div class="slider__btn">
+            <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
+            <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+        </div>
+        <div class="slider__dot"></div>
+    </div>
+</section>
 
 <div class="content">
     <div class="event">

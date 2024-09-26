@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+</head>
+<body>
+<h2><span th:text="${user_name}"></span> 님</h2>
+
+<button onclick="location.href='mypage/info'">내 정보</button>
+<button onclick="location.href='mypage/tickets'">티켓</button>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+</body>
+</html>

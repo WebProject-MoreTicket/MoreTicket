@@ -1,0 +1,184 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.logo-container img {
+    width: 200px; /* 이미지 크기를 조정 */
+    height: 30px;
+    height: auto;
+}
+
+.func-btn {
+    text-align: right;
+    right: 50px; /* 오른쪽에서 20px 떨어지게 설정 */
+    top: 70px; /* 상단에서 20px 떨어지게 설정 */
+
+}
+
+.func-btn a {
+    color: black; /* 링크 색상을 검은색으로 고정 */
+    text-decoration: none; /* 밑줄 제거 */
+    margin: 5px;
+
+}
+
+.func-btn a:hover,
+.func-btn a:visited,
+.func-btn a:active {
+    color: black; /* 링크 상태에 상관없이 항상 검은색 유지 */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    text-align: center;
+}
+
+header h1 {
+    text-align: right;
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    background-color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+nav a {
+
+    color: black;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.event {
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.event img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event h2 {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.event p {
+    font-size: 14px;
+    color: #666;
+}
+
+footer {
+    background-color: #f1e863;
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+
+.slider__wrap {
+    position: relative;
+    width: 100%; /* 슬라이더가 부모 요소의 너비를 100% 차지하도록 설정 */
+    max-width: 800px; /* 슬라이더의 최대 너비를 설정 */
+    height: 450px; /* 슬라이더의 높이 설정 */
+    overflow: hidden;
+    margin: auto; /* 중앙 정렬 */
+}
+
+.slider__img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slider__inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider {
+    min-width: 100%;
+    height: 100%;
+}
+
+.slider img {
+    width: 100%; /* 이미지의 너비를 슬라이더 너비에 맞게 설정 */
+    height: 100%; /* 이미지의 높이를 슬라이더 높이에 맞게 설정 */
+    object-fit: cover; /* 이미지가 슬라이더를 가득 채우도록 설정 */
+}
+
+.slider__btn a {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.slider__btn a.prev {
+    left: 10px;
+}
+
+.slider__btn a.next {
+    right: 10px;
+}
+
+.slider__btn a:hover {
+    background: rgba(38, 52, 103, 0.6);
+}
+
+.slider__dot {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slider__dot .dot {
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    border-radius: 50%;
+    margin: 2px;
+    transition: background 0.3s;
+}
+
+.slider__dot .dot.active {
+    background: rgba(255, 255, 255, 0.9);
+}
