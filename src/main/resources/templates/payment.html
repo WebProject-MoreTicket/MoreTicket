@@ -14,8 +14,12 @@
 <button id="payBtn">결제 진행</button>
 
 <script>
-    let IMP = window.IMP; // IMP 객체를 전역으로 설정
-    IMP.init("[[${shortWeatherKey}]]"); // 숨긴 API 키로 초기화
+    // 이미 선언된 경우 중복 선언 방지
+    if (!window.IMP) {
+        var IMP = window.IMP;  // var로 선언하거나 선언 여부를 체크
+    }
+
+    IMP.init('imp60732868');  // Iamport API 키로 초기화
 
     function requestPay(amount, grade, selectedDate) {
         IMP.request_pay({
@@ -32,9 +36,21 @@
             custom_data: { selectedDate: selectedDate }  // 선택한 날짜를 추가로 넘김
         }, function (rsp) {
             if (rsp.success) {
-                // 결제 성공 시 로직 추가
-                alert('티켓 예매가 완료되었습니다. 선택한 날짜: ' + selectedDate);
-                location.href = "/mypage";
+                // 결제 성공 시, 티켓 저장을 위한 POST 요청
+                fetch("/payment/complete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `price=${amount}&seatGrade=${grade}&userId=1` // userId는 예시로 1을 사용
+                }).then(response => {
+                    if (response.ok) {
+                        alert('티켓 예매가 완료되었습니다.');
+                        location.href = "/mypage";
+                    } else {
+                        alert('티켓 저장 중 문제가 발생했습니다.');
+                    }
+                });
             } else {
                 // 결제 실패 시 로직 추가
                 alert('결제가 실패하였습니다. 오류 메시지: ' + rsp.error_msg);
@@ -44,11 +60,13 @@
 
     // 결제 버튼 클릭 이벤트 핸들러
     document.getElementById("payBtn").addEventListener("click", function () {
-        const grade = "[[${seatGrade}]]";
-        const amount = [[${amount}]]; // Thymeleaf 바인딩
-        const selectedDate = "[[${selectedDate}]]"; // 선택한 날짜 Thymeleaf 바인딩
-        requestPay(amount, grade, selectedDate); // 선택한 날짜 전달
+        const grade = "[[${seatGrade}]]";  // seatGrade는 문자열
+        const amount = [[${amount}]];  // amount는 숫자
+        const selectedDate = "[[${selectedDate}]]";  // selectedDate는 문자열
+        requestPay(amount, grade, selectedDate);  // 선택한 날짜 전달
     });
+
 </script>
+
 </body>
 </html>

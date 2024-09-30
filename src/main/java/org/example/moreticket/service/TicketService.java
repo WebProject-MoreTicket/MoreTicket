@@ -4,7 +4,7 @@ import org.example.moreticket.entity.Ticket;
 import org.example.moreticket.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 public class TicketService {
@@ -15,9 +15,14 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    // 사용자 ID를 통해 티켓 목록 조회
-    public List<Ticket> getTicketsByUserId(Long userId) {
-        return ticketRepository.findByUserId(userId);
+    public Ticket saveTicket(int price, String seatGrade, Long userId) {
+        Ticket ticket = new Ticket();
+        ticket.setCreatedAt(LocalDateTime.now());
+        ticket.setPrice(price);
+        ticket.setSeatGrade(seatGrade);
+        ticket.setUserId(userId);
+        return ticketRepository.save(ticket);
     }
 }
+
 

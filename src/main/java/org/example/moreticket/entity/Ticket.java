@@ -16,13 +16,21 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String seatGrade;
-    private int price;
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    // userId 필드 추가
+    @Column(name = "price", nullable = false)
+    private int price;
+
+    @Column(name = "seat_grade", nullable = false)
+    private String seatGrade;
+
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    // Getters and setters
+    // 생성자 및 기타 필요한 메서드들
 }
+
 
 
