@@ -7,7 +7,27 @@
 <body>
 <h2>내가 선택한 공연 상세 정보</h2>
 
-<button type="button" onclick="location.href='/ticket'">예매하기</button>
+<!-- 예매하기 버튼 -->
+<button type="button" onclick="handleTicket()">예매하기</button>
 
+<script>
+    function handleTicket() {
+        // 서버에 로그인 여부를 확인하는 요청을 보냄
+        fetch('/checkLogin')
+            .then(response => {
+                if (response.ok) {
+                    // 로그인 상태이면 예매 페이지로 이동
+                    location.href = '/ticket';
+                } else {
+                    // 로그인되어 있지 않으면 경고창 띄우고 로그인 페이지로 리다이렉트
+                    alert('로그인이 필요합니다.');
+                    location.href = '/login';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+            });
+    }
+</script>
 </body>
 </html>
