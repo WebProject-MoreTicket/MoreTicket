@@ -63,6 +63,13 @@ public class TicketController {
 
     ///////////////////////////////////////////////////// 수정
 
+    // 좌석표를 보여주는 핸들러
+    @GetMapping("/seatmap")
+    public String showSeatMap(@RequestParam("date") String date, Model model) {
+        // 좌석표를 구성하는 데 필요한 데이터가 있다면 여기에 추가 가능
+        model.addAttribute("date", date); // 선택된 날짜를 모델에 추가
+        return "seatmap";  // seatmap.html을 반환
+    }
 
 }
 

@@ -21,16 +21,16 @@
             font-weight: bold;
         }
     </style>
-    <script>
-        function selectDate(dateElement) {
-            const selected = document.querySelector('.calendar .selected');
-            if (selected) {
-                selected.classList.remove('selected');
-            }
-            dateElement.classList.add('selected');
-            document.getElementById('selectedDate').value = dateElement.dataset.date;
-        }
-    </script>
+<!--    <script>-->
+<!--        function selectDate(dateElement) {-->
+<!--            const selected = document.querySelector('.calendar .selected');-->
+<!--            if (selected) {-->
+<!--                selected.classList.remove('selected');-->
+<!--            }-->
+<!--            dateElement.classList.add('selected');-->
+<!--            document.getElementById('selectedDate').value = dateElement.dataset.date;-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body>
 <h2>콘서트 이름</h2>
@@ -86,6 +86,21 @@
     <br><br>
     <button type="submit">결제 페이지로 이동</button>
 </form>
+
+<script>
+    function selectDate(dateElement) {
+        const selected = document.querySelector('.calendar .selected');
+        if (selected) {
+            selected.classList.remove('selected');
+        }
+        dateElement.classList.add('selected');
+        document.getElementById('selectedDate').value = dateElement.dataset.date;
+
+        // 좌석표를 팝업으로 띄우기
+        const seatPopupUrl = `/seatmap?date=${dateElement.dataset.date}`;
+        window.open(seatPopupUrl, '좌석표', 'width=1000,height=600,resizable=yes,scrollbars=yes');
+    }
+</script>
 
 </body>
 </html>
