@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+    <link rel="stylesheet" href="/css/signup.css">
 </head>
 
-<link rel="stylesheet" href="/css/signup.css">
-
 <body>
-
 
 <div class="logo-container">
     <a href="/">
@@ -22,7 +20,8 @@
     <p th:text="${message}"></p>
 </div>
 
-<form action="/signup" method="post">
+<!-- 폼에 id="signupForm" 추가 -->
+<form id="signupForm" action="/signup" method="post">
 
     <label for="userId">User ID:</label><br>
     <input type="text" id="userId" name="userId" required><br><br>
@@ -56,6 +55,45 @@
 
     <button type="submit">Sign Up</button>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('signupForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();  // 기본 폼 제출 방지
+
+                const formData = new FormData(this);
+
+                // AJAX 요청을 사용하여 서버에 데이터 전송
+                fetch('/signup', {
+                    method: 'POST',
+                    body: new URLSearchParams(formData),
+                })
+                    .then(response => {
+                        // 서버 응답이 성공적이지 않을 경우 경고창 표시
+                        if (!response.ok) {
+                            return response.text().then(message => {
+                                alert(message);  // 경고 메시지 표시
+                            });
+                        } else {
+                            return response.text().then(message => {
+                                // 회원가입 성공 시 메인 페이지로 이동
+                                alert('회원가입이 완료되었습니다!');
+                                window.location.href = '/main';
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        } else {
+            console.error('signupForm 요소를 찾을 수 없습니다.');
+        }
+    });
+</script>
+
 
 </body>
 </html>

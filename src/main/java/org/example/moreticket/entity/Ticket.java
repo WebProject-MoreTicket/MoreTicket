@@ -25,11 +25,13 @@ public class Ticket {
     @Column(name = "seat_grade", nullable = false)
     private String seatGrade;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+//    @Column(name = "user_id", nullable = false)
+//    private Long userId;
 
-    // Getters and setters
-    // 생성자 및 기타 필요한 메서드들
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
 }
 
 

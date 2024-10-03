@@ -60,5 +60,9 @@ public class TicketController {
         // 결제 페이지로 이동
         return "payment";
     }
+
+    ///////////////////////////////////////////////////// 수정
+
+
 }
 
