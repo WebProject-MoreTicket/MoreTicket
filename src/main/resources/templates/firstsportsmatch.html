@@ -2,22 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>선택한 경기 정보</title>
 </head>
 <body>
-<h2>내가 선택한 공연 상세 정보</h2>
+<h2>내가 선택한 경기 상세 정보</h2>
+
+<!-- 선택한 경기 정보를 표시하는 영역 -->
+<div id="match-info"></div>
 
 <!-- 예매하기 버튼 -->
 <button type="button" onclick="handleTicket()">예매하기</button>
 
 <script>
+    // URL에서 matchId 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const matchId = urlParams.get('matchId');
+
+    // 경기 정보 표시
+    function displayMatchInfo() {
+        const matchInfoDiv = document.getElementById('match-info');
+
+        let matchDetails = '';
+
+        // matchId에 따라 경기 정보를 다르게 표시
+        switch (matchId) {
+            case '1':
+                matchDetails = 'FC Bayern Munich VS Tottenham Hotspur';
+                break;
+            case '2':
+                matchDetails = 'Arsenal FC VS Tottenham Hotspur';
+                break;
+            case '3':
+                matchDetails = 'Real Madrid VS Barcelona';
+                break;
+            default:
+                matchDetails = '선택된 경기가 없습니다.';
+        }
+
+        matchInfoDiv.innerHTML = `<p>경기: ${matchDetails}</p>`;
+    }
+
+    displayMatchInfo();
+
     function handleTicket() {
         // 서버에 로그인 여부를 확인하는 요청을 보냄
         fetch('/checkLogin')
             .then(response => {
                 if (response.ok) {
-                    // 로그인 상태이면 예매 페이지로 이동
-                    location.href = '/ticket';
+                    // 로그인 상태이면 결제 페이지로 이동
+                    location.href = '/ticket?matchId=' + matchId;
                 } else {
                     // 로그인되어 있지 않으면 경고창 띄우고 로그인 페이지로 리다이렉트
                     alert('로그인이 필요합니다.');
@@ -29,5 +62,6 @@
             });
     }
 </script>
+
 </body>
 </html>

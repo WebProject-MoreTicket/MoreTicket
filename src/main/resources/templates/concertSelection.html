@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>공연 선택</title>
+    <style>
+        .concert-list {
+            display: flex;
+            flex-direction: column;
+        }
+        .concert-item {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .concert-details {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+    </style>
+    <script>
+        function showConcertDetails(concertId, concertName, concertDate) {
+            document.getElementById('concertName').textContent = concertName;
+            document.getElementById('concertDate').textContent = concertDate;
+            document.getElementById('concertId').value = concertId;
+        }
+    </script>
+</head>
+<body>
+<h2>공연 선택</h2>
+<div class="concert-list">
+    <div class="concert-item" onclick="showConcertDetails(1, 'FC Bayern Munich VS Tottenham Hotspur', '2024-11-01')">
+        FC Bayern Munich VS Tottenham Hotspur
+    </div>
+    <div class="concert-item" onclick="showConcertDetails(2, 'Blackpink Concert', '2024-12-01')">
+        Blackpink Concert
+    </div>
+    <!-- 더 많은 공연 리스트 추가 가능 -->
+</div>
+
+<div class="concert-details">
+    <h3>선택한 공연 정보</h3>
+    <p>공연 이름: <span id="concertName">-</span></p>
+    <p>공연 날짜: <span id="concertDate">-</span></p>
+</div>
+
+<form action="/payment" method="get">
+    <input type="hidden" id="concertId" name="concertId" />
+    <button type="submit">결제 페이지로 이동</button>
+</form>
+</body>
+</html>

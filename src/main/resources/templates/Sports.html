@@ -2,11 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>경기 목록</title>
 </head>
 <body>
 <h1>경기 정보</h1>
-<button type="button" onclick="location.href='/firstsportsmatch'" >예매하기</button>
+
+<!-- 경기 목록 -->
+<ul id="match-list">
+    <li>FC Bayern Munich VS Tottenham Hotspur <button type="button" onclick="selectMatch(1)">예매하기</button></li>
+    <li>Arsenal FC VS Tottenham Hotspur <button type="button" onclick="selectMatch(2)">예매하기</button></li>
+    <li>Real Madrid VS Barcelona <button type="button" onclick="selectMatch(3)">예매하기</button></li>
+</ul>
+
+<script>
+    function selectMatch(matchId) {
+        // 선택한 경기 ID를 URL 파라미터로 전송
+        location.href = '/firstsportsmatch?matchId=' + matchId;
+    }
+</script>
 
 </body>
 </html>
