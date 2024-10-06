@@ -21,7 +21,7 @@
 
     IMP.init('imp60732868');  // Iamport API 키로 초기화
 
-    function requestPay(amount, grade, selectedDate) {
+    function requestPay(amount, grade, selectedDate, concertId) {
         IMP.request_pay({
             pg: 'kakaopay', // PG로 카카오페이 설정
             pay_method: 'card',
@@ -33,7 +33,7 @@
             buyer_tel: '010-1234-5678',
             buyer_addr: '서울특별시 강남구 삼성동',
             buyer_postcode: '123-456',
-            custom_data: { selectedDate: selectedDate }  // 선택한 날짜를 추가로 넘김
+            custom_data: { selectedDate: selectedDate, concertId: concertId }  // 선택한 날짜를 추가로 넘김
         }, function (rsp) {
             if (rsp.success) {
                 // 결제 성공 시, 티켓 저장을 위한 POST 요청
@@ -42,7 +42,7 @@
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    body: `price=${amount}&seatGrade=${grade}&userId=1` // userId는 예시로 1을 사용
+                    body: `price=${amount}&seatGrade=${grade}&userId=1&concertId=${concertId}` // userId는 예시로 1을 사용
                 }).then(response => {
                     if (response.ok) {
                         alert('티켓 예매가 완료되었습니다.');
@@ -60,12 +60,15 @@
 
     // 결제 버튼 클릭 이벤트 핸들러
     document.getElementById("payBtn").addEventListener("click", function () {
-        const grade = "[[${seatGrade}]]";  // seatGrade는 문자열
-        const amount = [[${amount}]];  // amount는 숫자
-        const selectedDate = "[[${selectedDate}]]";  // selectedDate는 문자열
-        requestPay(amount, grade, selectedDate);  // 선택한 날짜 전달
-    });
+        const grade = "[[${seatGrade}]]";  // seatGrade는 문자열이므로 따옴표로 감쌈
+        const amount = [[${amount != null ? amount : 0}]];  // amount는 숫자이므로 따옴표 없이 사용
+        const selectedDate = "[[${selectedDate}]]";  // selectedDate도 문자열이므로 따옴표로 감쌈
+        const concertId = [[${concertId != null ? concertId : 0}]];  // concertId가 없을 경우 기본값 0 설정
 
+        console.log("concertId:", concertId);
+
+        requestPay(amount, grade, selectedDate, concertId);  // 전달되는 값 확인
+    });
 </script>
 
 </body>

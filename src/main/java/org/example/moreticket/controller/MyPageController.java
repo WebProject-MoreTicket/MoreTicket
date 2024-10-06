@@ -1,8 +1,11 @@
 package org.example.moreticket.controller;
 
+import java.util.List;
 import jakarta.servlet.http.HttpSession;
+import org.example.moreticket.entity.Ticket;
 import org.example.moreticket.service.TicketService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -10,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MyPageController {
 
     private final TicketService ticketService;
+
+    public MyPageController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @GetMapping("/mypage")
     public String myPage() {
@@ -24,8 +31,13 @@ public class MyPageController {
 
     // 티켓 페이지
     @GetMapping("/mypage/tickets")
-    public String myTickets() {
-        return "mypage/myTickets";
+    public String myTickets(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId"); // 세션에서 userId를 가져옴
+        if (userId != null) {
+            List<Ticket> tickets = ticketService.findTicketsByUser(userId);  // 해당 사용자의 티켓 목록 조회
+            model.addAttribute("tickets", tickets);  // 조회한 티켓 리스트를 모델에 추가
+        }
+        return "mypage/myTickets";  // templates/mypage/myTickets.html로 이동
     }
 
     @PostMapping("/logout")
@@ -33,10 +45,4 @@ public class MyPageController {
         session.invalidate(); // 세션 무효화
         return "redirect:/";  // 메인 페이지로 리다이렉트
     }
-
-
-    public MyPageController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
-
 }

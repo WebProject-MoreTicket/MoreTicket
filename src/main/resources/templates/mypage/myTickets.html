@@ -2,14 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>예매 티켓</title>
+    <title>마이페이지</title>
 </head>
 <body>
-<h2>티켓 예매 정보</h2>
+<h2>예매한 티켓 정보</h2>
 
 <table>
     <thead>
     <tr>
+        <th>공연 이름</th>
         <th>날짜</th>
         <th>좌석 등급</th>
         <th>가격</th>
@@ -17,8 +18,9 @@
     </thead>
     <tbody>
     <tr th:each="ticket : ${tickets}">
-        <td th:text="${ticket.date}">2024-09-21</td>
-        <td th:text="${ticket.grade}">A석</td>
+        <td th:text="${ticket.concert.name}">공연 이름</td>
+        <td th:text="${ticket.concert.date}">2024-09-21</td>
+        <td th:text="${ticket.seatGrade}">A석</td>
         <td th:text="${ticket.price}">50000</td>
     </tr>
     </tbody>

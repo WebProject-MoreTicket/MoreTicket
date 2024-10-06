@@ -19,10 +19,23 @@ public class PaymentController {
 
     @PostMapping("/payment/complete")
     public String completePayment(@RequestParam int price, @RequestParam String seatGrade,
-                                  @RequestParam Long userId) {
+                                  @RequestParam Long userId, @RequestParam Long concertId) {
+        // 로그 추가
+        System.out.println("Price: " + price);
+        System.out.println("Seat Grade: " + seatGrade);
+        System.out.println("User ID: " + userId);
+        System.out.println("Concert ID: " + concertId);
+
         // 결제 완료 후 티켓 저장
-        ticketService.saveTicket(price, seatGrade, userId);
+        try {
+            ticketService.saveTicket(price, seatGrade, userId, concertId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/mypage?error";  // 에러 발생 시 처리
+        }
+
         return "redirect:/mypage";
     }
+
 
 }
