@@ -2,6 +2,7 @@ package org.example.moreticket.service;
 
 import org.example.moreticket.entity.Concert;
 import org.example.moreticket.entity.Ticket;
+import org.example.moreticket.entity.User;
 import org.example.moreticket.repository.ConcertRepository;
 import org.example.moreticket.repository.TicketRepository;
 import org.example.moreticket.repository.UserRepository;
@@ -14,28 +15,35 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
-    private final ConcertRepository concertRepository;  // ConcertRepository 주입
+    private final ConcertRepository concertRepository;
 
     public TicketService(TicketRepository ticketRepository, UserRepository userRepository, ConcertRepository concertRepository) {
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
-        this.concertRepository = concertRepository;  // 주입된 ConcertRepository 사용
+        this.concertRepository = concertRepository;
     }
 
     public void saveTicket(int price, String seatGrade, Long userId, Long concertId) {
-        Ticket ticket = new Ticket();
-        ticket.setPrice(price);
-        ticket.setSeatGrade(seatGrade);
-        ticket.setUser(userRepository.findById(userId).orElseThrow());
+        try {
+            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+            Concert concert = concertRepository.findById(concertId).orElseThrow(() -> new RuntimeException("콘서트를 찾을 수 없습니다."));
 
-        // 콘서트 정보 설정
-        Concert concert = concertRepository.findById(concertId).orElseThrow();  // 콘서트 정보를 가져옴
-        ticket.setConcert(concert);
+            Ticket ticket = new Ticket();
+            ticket.setPrice(price);
+            ticket.setSeatGrade(seatGrade);
+            ticket.setUser(user);
+            ticket.setConcert(concert);
 
-        ticketRepository.save(ticket);
+            ticketRepository.save(ticket);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("티켓 저장 중 오류 발생");
+        }
     }
-
-    public List<Ticket> findTicketsByUser(Long userId) {
-        return ticketRepository.findAllByUserId(userId);
+    public List<Ticket> findByUserId(Long userId) {
+        return ticketRepository.findByUserId(userId);
     }
 }
+
+
+

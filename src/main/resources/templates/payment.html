@@ -60,10 +60,10 @@
 
     // 결제 버튼 클릭 이벤트 핸들러
     document.getElementById("payBtn").addEventListener("click", function () {
-        const grade = "[[${seatGrade}]]";  // seatGrade는 문자열이므로 따옴표로 감쌈
-        const amount = [[${amount != null ? amount : 0}]];  // amount는 숫자이므로 따옴표 없이 사용
-        const selectedDate = "[[${selectedDate}]]";  // selectedDate도 문자열이므로 따옴표로 감쌈
-        const concertId = [[${concertId != null ? concertId : 0}]];  // concertId가 없을 경우 기본값 0 설정
+        const grade = "[[${seatGrade}]]";
+        const amount = [[${amount != null ? amount : 0}]];
+        const selectedDate = "[[${selectedDate}]]";
+        const concertId = [[${concertId != null ? concertId : 0}]];
 
         console.log("concertId:", concertId);
 

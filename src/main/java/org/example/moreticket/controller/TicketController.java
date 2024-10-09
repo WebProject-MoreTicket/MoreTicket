@@ -39,27 +39,30 @@ public class TicketController {
 
     @PostMapping("/payment")
     public String showPaymentPage(@RequestParam("seatGrade") String seatGrade, Model model) {
-        // 좌석 등급에 따른 결제 금액 설정
         int amount = 0;
         switch (seatGrade) {
-            case "A":
-                amount = 100000;
-                break;
-            case "B":
-                amount = 50000;
-                break;
-            case "C":
-                amount = 30000;
-                break;
+            case "A": amount = 100000; break;
+            case "B": amount = 50000; break;
+            case "C": amount = 30000; break;
         }
 
-        // 모델에 데이터 추가
         model.addAttribute("seatGrade", seatGrade);
         model.addAttribute("amount", amount);
 
-        // 결제 페이지로 이동
         return "payment";
     }
+
+    @GetMapping("/payment")
+    public String showPaymentPage(Model model) {
+        // 예시로 콘서트, 좌석, 날짜 데이터를 세팅
+        model.addAttribute("seatGrade", "VIP");
+        model.addAttribute("amount", 100000);
+        model.addAttribute("selectedDate", "2024-10-10");
+        model.addAttribute("concertId", 1L);
+
+        return "payment";
+    }
+
 
     ///////////////////////////////////////////////////// 수정
 

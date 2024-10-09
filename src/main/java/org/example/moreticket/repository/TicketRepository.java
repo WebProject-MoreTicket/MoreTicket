@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findAllByUserId(Long userId);
+    List<Ticket> findByUserId(Long userId);  // 메서드 이름 수정
 }
-
-

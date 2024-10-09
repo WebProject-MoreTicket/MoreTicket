@@ -34,8 +34,10 @@ public class MyPageController {
     public String myTickets(Model model, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId"); // 세션에서 userId를 가져옴
         if (userId != null) {
-            List<Ticket> tickets = ticketService.findTicketsByUser(userId);  // 해당 사용자의 티켓 목록 조회
+            List<Ticket> tickets = ticketService.findByUserId(userId);  // 메서드 이름 변경
             model.addAttribute("tickets", tickets);  // 조회한 티켓 리스트를 모델에 추가
+        } else {
+            model.addAttribute("tickets", List.of()); // userId가 null인 경우 빈 리스트 추가
         }
         return "mypage/myTickets";  // templates/mypage/myTickets.html로 이동
     }
