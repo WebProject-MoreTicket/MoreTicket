@@ -10,7 +10,7 @@
 <table>
     <thead>
     <tr>
-        <th>공연 이름</th>
+        <th>티켓 이름</th>
         <th>날짜</th>
         <th>좌석 등급</th>
         <th>가격</th>
@@ -19,8 +19,8 @@
     <tbody>
     <!-- tickets가 비어있지 않은 경우 -->
     <tr th:each="ticket : ${tickets}">
-        <td th:text="${ticket.concert.name}">공연 이름</td>
-        <td th:text="${ticket.concert.date}">날짜</td>
+        <td th:text="${ticket.name}">티켓 이름</td>
+        <td th:text="${ticket.date}">날짜</td>
         <td th:text="${ticket.seatGrade}">좌석 등급</td>
         <td th:text="${ticket.price}">가격</td>
     </tr>

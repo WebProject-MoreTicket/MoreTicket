@@ -29,9 +29,10 @@ public class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "concert_id")
-    private Concert concert;
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();  // 현재 시간을 설정
+    }
 
 }
 
