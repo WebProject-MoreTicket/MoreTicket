@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>티켓 예매</title>
+    <link rel="stylesheet" href="/css/sports.css">
+</head>
+<body>
+<div class="logo-container">
+    <a href="/">
+        <img src="/images/logo.jpg" alt="logo">
+    </a>
+</div>
+
+<!-- 경기 목록 -->
+<ul id="match-list">
+    <li class="match-item">
+        <img src="/images/opera.jpg" alt="2024 오페라 투란도트 아레나 디 베로나 오리지널" class="thumbnail">
+        <div class="match-info">
+            <strong>2024 오페라 투란도트 아레나 디 베로나 오리지널</strong>
+            <span>장소: 올림픽체조경기장</span>
+            <span>날짜: 2024.10.12 ~2024.10.19</span>
+        </div>
+        <button type="button" onclick="selectItem(10)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/woo.jpg" alt="콘체르토 마라톤 프로젝트 - 선우예권의 라흐마니노프 피아노 협주곡" class="thumbnail">
+        <div class="match-info">
+            <strong>콘체르토 마라톤 프로젝트 - 선우예권의 라흐마니노프 피아노 협주곡</strong>
+            <span>장소: 예술의전당 콘서트홀</span>
+            <span>날짜: 2024.10.15</span>
+        </div>
+        <button type="button" onclick="selectItem(11)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/sal.jpg" alt="제4회 SAL 기획공연 ‘BETA’" class="thumbnail">
+        <div class="match-info">
+            <strong>제4회 SAL 기획공연 ‘BETA’</strong>
+            <span>장소: 서강대학교 메리홀 대극장</span>
+            <span>날짜: 2024.11.08 ~2024.11.09</span>
+        </div>
+        <button type="button" onclick="selectItem(12)">예매하기</button>
+    </li>
+</ul>
+
+<script>
+    function selectItem(itemId) {
+        // 선택한 경기 ID를 URL 파라미터로 전송
+        location.href = '/inf4?itemId=' + itemId;
+    }
+</script>
+
+</body>
+</html>

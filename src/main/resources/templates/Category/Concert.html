@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>티켓 예매</title>
+    <link rel="stylesheet" href="/css/sports.css">
+</head>
+<body>
+<div class="logo-container">
+    <a href="/">
+        <img src="/images/logo.jpg" alt="logo">
+    </a>
+</div>
+
+<!-- 경기 목록 -->
+<ul id="match-list">
+    <li class="match-item">
+        <img src="/images/cold.jpg" alt="콜드플레이 내한공연" class="thumbnail">
+        <div class="match-info">
+            <strong>콜드플레이 내한공연</strong>
+            <span>장소: 고양종합운동장 주경기장</span>
+            <span>날짜: 2025.04.16 ~2025.04.25</span>
+        </div>
+        <button type="button" onclick="selectItem(4)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/ciga.jpg" alt="시가렛 애프터 섹스 내한공연" class="thumbnail">
+        <div class="match-info">
+            <strong>시가렛 애프터 섹스 내한공연</strong>
+            <span>장소: 킨텍스 제1전시장 2홀</span>
+            <span>날짜: 2025.01.07</span>
+        </div>
+        <button type="button" onclick="selectItem(5)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/roy.jpg" alt="2024 로이킴 콘서트 〈R♥y actually〉" class="thumbnail">
+        <div class="match-info">
+            <strong>2024 로이킴 콘서트 〈R♥y actually〉</strong>
+            <span>장소: 올림픽공원 올림픽핸드볼경기장</span>
+            <span>날짜: 2024.12.07 ~2024.12.08</span>
+        </div>
+        <button type="button" onclick="selectItem(6)">예매하기</button>
+    </li>
+</ul>
+
+<script>
+    function selectItem(itemId) {
+        // 선택한 경기 ID를 URL 파라미터로 전송
+        location.href = '/inf2?itemId=' + itemId;
+    }
+</script>
+
+</body>
+</html>
