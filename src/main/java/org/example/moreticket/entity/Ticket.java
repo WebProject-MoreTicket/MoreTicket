@@ -25,7 +25,7 @@ public class Ticket {
     @Column(name = "seat_grade", nullable = false)
     private String seatGrade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -33,5 +33,6 @@ public class Ticket {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
 }
 

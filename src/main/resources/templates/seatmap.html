@@ -7,11 +7,13 @@
         .seat-map {
             margin-bottom: 20px;
         }
+
         .seat-row {
             display: flex;
             justify-content: center; /* 좌석을 가운데 정렬 */
             margin-bottom: 10px;
         }
+
         .seat {
             padding: 15px;
             background-color: lightgray;
@@ -23,12 +25,21 @@
             height: 50px; /* 좌석의 고정된 높이 설정 */
             box-sizing: border-box; /* 패딩과 테두리를 포함한 크기를 고정 */
         }
+
         .seat:last-child {
             margin-right: 0; /* 마지막 좌석의 오른쪽 여백 제거 */
         }
+
         .seat.selected {
             background-color: lightgreen;
             font-weight: bold;
+        }
+
+        .loading {
+            color: blue;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
         }
     </style>
 </head>
@@ -40,6 +51,15 @@
 
 <!-- 선택한 좌석 정보를 저장하는 히든 필드 -->
 <input type="hidden" id="selectedSeat" name="selectedSeat">
+
+<!-- 확인 및 취소 버튼 추가 -->
+<div>
+    <button type="button" onclick="confirmSeat()">확인</button>
+    <button type="button" onclick="cancelSelection()">취소</button>
+</div>
+
+<!-- 로딩 중 메시지 -->
+<p id="loadingMessage" class="loading">예약 처리 중입니다...</p>
 
 <script>
     function createSeatMap() {
@@ -60,7 +80,7 @@
                 seatElement.innerText = seat;
 
                 // 좌석 클릭 시 선택 처리
-                seatElement.onclick = function() {
+                seatElement.onclick = function () {
                     const selected = document.querySelector('.seat.selected');
                     if (selected) {
                         selected.classList.remove('selected');
@@ -84,9 +104,59 @@
     }
 
     // 페이지 로드 시 좌석표 생성
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         createSeatMap();
     });
+
+    function confirmSeat() {
+        const selectedSeat = document.getElementById('selectedSeat').value;
+
+        if (selectedSeat) {
+            // Row와 Seat를 정확하게 분리하기 위해 '-' 기준으로 나눕니다.
+            const seatParts = selectedSeat.split('-');
+            const row = seatParts[0];  // Row6
+            const seat = seatParts[1];  // Seat7
+
+            console.log("선택한 열:", row);  // 디버깅용
+            console.log("선택한 좌석:", seat);  // 디버깅용
+
+            // 로딩 중 메시지 표시
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            // 서버에 좌석 예약 요청
+            fetch('/seats/reserve', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    seatRow: row,
+                    seatNumber: seat
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('loadingMessage').style.display = 'none';  // 로딩 메시지 숨기기
+                    alert(data);  // 예약 성공 여부를 사용자에게 알림
+                })
+                .catch(error => {
+                    document.getElementById('loadingMessage').style.display = 'none';  // 로딩 메시지 숨기기
+                    console.error('좌석 예약 중 오류:', error);
+                    alert('좌석 예약 중 오류가 발생했습니다.');
+                });
+        } else {
+            alert('좌석을 선택해 주세요.');
+        }
+    }
+
+
+    function cancelSelection() {
+        const selected = document.querySelector('.seat.selected');
+        if (selected) {
+            selected.classList.remove('selected');
+        }
+        document.getElementById('selectedSeat').value = ''; // 선택한 좌석 초기화
+    }
 </script>
 
 </body>
