@@ -20,24 +20,23 @@ public class TicketService {
     }
 
     public void saveTicket(int price, String seatGrade, Long userId) {
-        try {
-            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));  // 유저 유효성 검사
 
-            Ticket ticket = new Ticket();
-            ticket.setPrice(price);
-            ticket.setSeatGrade(seatGrade);
-            ticket.setUser(user);
+        Ticket ticket = new Ticket();
+        ticket.setPrice(price);
+        ticket.setSeatGrade(seatGrade);
+        ticket.setUser(user);
 
-            ticketRepository.save(ticket);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("티켓 저장 중 오류 발생");
-        }
+        ticketRepository.save(ticket);  // 티켓 저장
     }
-    public List<Ticket> findByUserId(Long userId) {
-        return ticketRepository.findByUserId(userId);
+
+
+    public List<Ticket> findByUser_Id(Long userId) {
+        return ticketRepository.findByUser_Id(userId);
     }
 }
+
 
 
 

@@ -1,5 +1,6 @@
 package org.example.moreticket.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.moreticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,20 +19,23 @@ public class PaymentController {
 
     @PostMapping("/payment/complete")
     public String completePayment(@RequestParam int price, @RequestParam String seatGrade,
-                                  @RequestParam Long userId) {
-        // 로그 추가
+                                  HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");  // 세션에서 userId 가져오기
+        if (userId == null) {
+            throw new RuntimeException("로그인이 필요합니다.");
+        }
+
+        // 로그로 확인
         System.out.println("Price: " + price);
         System.out.println("Seat Grade: " + seatGrade);
         System.out.println("User ID: " + userId);
 
-        // 결제 완료 후 티켓 저장
         try {
             // 티켓 저장
             ticketService.saveTicket(price, seatGrade, userId);
-
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/mypage?error";  // 에러 발생 시 처리
+            return "redirect:/mypage?error";
         }
 
         return "redirect:/mypage";

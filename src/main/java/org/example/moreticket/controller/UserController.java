@@ -90,4 +90,9 @@ public class UserController {
         return "redirect:/"; // 메인 페이지로 리다이렉트
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
 }

@@ -10,23 +10,21 @@
 <table>
     <thead>
     <tr>
-        <th>티켓 이름</th>
-        <th>날짜</th>
+        <th>공연 이름</th>
+        <th>예매 시간</th>
         <th>좌석 등급</th>
         <th>가격</th>
     </tr>
     </thead>
     <tbody>
-    <!-- tickets가 비어있지 않은 경우 -->
+    <tr th:if="${#lists.isEmpty(tickets)}">
+        <td colspan="3">예매한 티켓이 없습니다.</td>
+    </tr>
     <tr th:each="ticket : ${tickets}">
-        <td th:text="${ticket.name}">티켓 이름</td>
-        <td th:text="${ticket.date}">날짜</td>
+        <td>콜드플레이 내한공연</td>
+        <td th:text="${#temporals.format(ticket.createdAt, 'yyyy-MM-dd')}">예매 시간</td>
         <td th:text="${ticket.seatGrade}">좌석 등급</td>
         <td th:text="${ticket.price}">가격</td>
-    </tr>
-    <!-- tickets가 비어있는 경우 -->
-    <tr th:if="${#lists.isEmpty(tickets)}">
-        <td colspan="4">예매한 티켓이 없습니다.</td>
     </tr>
     </tbody>
 </table>

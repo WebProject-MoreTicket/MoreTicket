@@ -25,16 +25,13 @@ public class Ticket {
     @Column(name = "seat_grade", nullable = false)
     private String seatGrade;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();  // 현재 시간을 설정
+        this.createdAt = LocalDateTime.now();
     }
-
 }
-
-
 
