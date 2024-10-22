@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    // 스포츠 카테고리 선택 시 띄우는 예메 메인 페이지
+    // 스포츠 카테고리 선택 시 띄우는 예메 메인 페이지ㅇ
     @GetMapping("/Sports")
     public String Sports() {
         return "Category/Sports";
