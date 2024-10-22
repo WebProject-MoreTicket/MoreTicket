@@ -20,7 +20,7 @@ public class PaymentController {
     @PostMapping("/payment/complete")
     public String completePayment(@RequestParam int price, @RequestParam String seatGrade,
                                   HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");  // 세션에서 userId 가져오기
+        Long userId = (Long) session.getAttribute("id");  // 세션에서 userId 가져오기
         if (userId == null) {
             throw new RuntimeException("로그인이 필요합니다.");
         }

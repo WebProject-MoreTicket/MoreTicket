@@ -22,19 +22,19 @@ public class UserController {
     // 로그인 페이지 반환
     @GetMapping("/login")
     public String loginPage() {
-        return "Mainfunc/login";
+        return "login";
     }
 
     // 메인 페이지 반환
     @GetMapping("/")
     public String mainPage() {
-        return "Mainfunc/Main";
+        return "Main";
     }
 
     // 회원가입 페이지 반환
     @GetMapping("/signup")
     public String signupPage() {
-        return "Mainfunc/signup";
+        return "signup";
     }
 
     // 회원가입 처리
@@ -76,10 +76,10 @@ public class UserController {
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("loggedInUser", user); // 로그인 성공 시 세션에 사용자 정보 저장
             model.addAttribute("message", "Login successful");
-            return "Mainfunc/Main";
+            return "Main";
         } else {
             model.addAttribute("error", "잘못된 아이디거나 비밀번호입니다.");
-            return "Mainfunc/login";
+            return "login";
         }
     }
 

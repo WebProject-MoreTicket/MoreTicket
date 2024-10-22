@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>티켓 예매</title>
+    <link rel="stylesheet" href="/css/sports.css">
+</head>
+<body>
+<div class="logo-container">
+    <a href="/">
+        <img src="/images/logo.jpg" alt="logo">
+    </a>
+</div>
+
+<!-- 경기 목록 -->
+<ul id="match-list">
+    <li class="match-item">
+        <img src="/images/base.jpg" alt="2024 플레이오프 4차전 LG vs 삼성" class="thumbnail">
+        <div class="match-info">
+            <strong>2024 플레이오프 4차전 LG vs 삼성</strong>
+            <span>장소: 잠실야구장</span>
+            <span>날짜: 2024.10.17 ~ 10.17</span>
+        </div>
+        <button type="button" onclick="selectItem(7)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/icon.jpg" alt="2024 넥슨 아이콘 매치: 창과 방패 - FC SPEAR vs SHIELD UTD" class="thumbnail">
+        <div class="match-info">
+            <strong>2024 넥슨 아이콘 매치: 창과 방패 - FC SPEAR vs SHIELD UTD</strong>
+            <span>장소: 서울월드컵경기장</span>
+            <span>날짜: 2024.10.20 ~ 10.20</span>
+        </div>
+        <button type="button" onclick="selectItem(8)">예매하기</button>
+    </li>
+    <li class="match-item">
+        <img src="/images/base.jpg" alt="2024 플레이오프 3차전 LG vs 삼성" class="thumbnail">
+        <div class="match-info">
+            <strong>2024 플레이오프 3차전 LG vs 삼성</strong>
+            <span>장소: 잠실야구장</span>
+            <span>날짜: 2024.10.16 ~ 10.16</span>
+        </div>
+        <button type="button" onclick="selectItem(9)">예매하기</button>
+    </li>
+</ul>
+
+<script>
+    function selectItem(itemId) {
+        // 선택한 경기 ID를 URL 파라미터로 전송
+        location.href = '/inf3?itemId=' + itemId;
+    }
+</script>
+
+</body>
+</html>
