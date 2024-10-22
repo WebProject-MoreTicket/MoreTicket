@@ -1,0 +1,91 @@
+body {
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #d4af37;
+}
+
+#match-list {
+    display: flex; /* 가로로 정렬 */
+    gap: 20px; /* 각 항목 사이 간격 */
+    list-style-type: none;
+    padding: 0;
+}
+
+#match-list li {
+    background-color: #ffeb99;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* 가로 정렬을 위한 변경 */
+    align-items: center;
+    transition: transform 0.3s ease; /* 확대 효과를 위한 애니메이션 */
+}
+
+#match-list li:hover {
+    transform: scale(1.05); /* 살짝 확대 */
+}
+
+.match-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 250px; /* 고정 너비 설정 */
+}
+
+.match-info strong {
+    font-size: 1.1em;
+    font-weight: bold;
+    white-space: nowrap; /* 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 말줄임표 표시 */
+    width: 100%; /* 부모 요소 크기에 맞춤 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.match-info span {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+
+.thumbnail {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #b8860b;
+}
+
+.logo-container img {
+    width: 300px;
+    height: auto;
+}
+
+/* 반응형 디자인을 위한 조정 */
+@media (max-width: 768px) {
+    #match-list {
+        flex-direction: column; /* 모바일에서는 세로로 정렬 */
+    }
+
+    #match-list li {
+        width: 100%;
+    }
+}

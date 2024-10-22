@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>좌석 및 날짜 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* 밝은 노란색 배경 */
+            color: #000;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            color: #000; /* 콘서트 이름 강조 */
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #000; /* 날짜 선택 강조 */
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .calendar div {
+            padding: 15px;
+            border: 1px solid #ccc;
+            background-color: #fff8e1; /* 기본 셀 배경색 */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .calendar div:hover {
+            background-color: #ffeb3b; /* 호버 시 노란색 강조 */
+        }
+
+        .calendar div.selected {
+            background-color: #ffcc00; /* 선택된 날짜의 배경색 */
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 선택된 날짜 강조 */
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            color: #ffcc00; /* 좌석 선택 라벨 색상 */
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            background-color: #fffde7; /* 옅은 노란색 배경 */
+            border: 1px solid #ffeb3b;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #ffcc00; /* 버튼 노란색 */
+            color: #000;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffa500; /* 버튼 호버 시 더 진한 노란색 */
+        }
+
+        /*.logo-container {*/
+        /*    text-align: left;*/
+        /*}*/
+
+        .logo-container img{
+            width: 300px;
+            height: auto;
+        }
+    </style>
+
+</head>
+<div class="logo-container">
+    <a href="/static">
+        <img src="/images/logo.jpg" alt="logo">
+    </a>
+</div>
+<body>
+<h2>콘서트 이름</h2>
+
+<form action="payment" method="post">
+    <!-- 날짜 선택 -->
+    <h3>날짜 선택</h3>
+    <div class="calendar">
+        <!-- 2024년 11월 달력을 표시 -->
+        <div data-date="2024-11-01" onclick="selectDate(this)">1</div>
+        <div data-date="2024-11-02" onclick="selectDate(this)">2</div>
+        <div data-date="2024-11-03" onclick="selectDate(this)">3</div>
+        <div data-date="2024-11-04" onclick="selectDate(this)">4</div>
+        <div data-date="2024-11-05" onclick="selectDate(this)">5</div>
+        <div data-date="2024-11-06" onclick="selectDate(this)">6</div>
+        <div data-date="2024-11-07" onclick="selectDate(this)">7</div>
+        <div data-date="2024-11-08" onclick="selectDate(this)">8</div>
+        <div data-date="2024-11-09" onclick="selectDate(this)">9</div>
+        <div data-date="2024-11-10" onclick="selectDate(this)">10</div>
+        <div data-date="2024-11-11" onclick="selectDate(this)">11</div>
+        <div data-date="2024-11-12" onclick="selectDate(this)">12</div>
+        <div data-date="2024-11-13" onclick="selectDate(this)">13</div>
+        <div data-date="2024-11-14" onclick="selectDate(this)">14</div>
+        <div data-date="2024-11-15" onclick="selectDate(this)">15</div>
+        <div data-date="2024-11-16" onclick="selectDate(this)">16</div>
+        <div data-date="2024-11-17" onclick="selectDate(this)">17</div>
+        <div data-date="2024-11-18" onclick="selectDate(this)">18</div>
+        <div data-date="2024-11-19" onclick="selectDate(this)">19</div>
+        <div data-date="2024-11-20" onclick="selectDate(this)">20</div>
+        <div data-date="2024-11-21" onclick="selectDate(this)">21</div>
+        <div data-date="2024-11-22" onclick="selectDate(this)">22</div>
+        <div data-date="2024-11-23" onclick="selectDate(this)">23</div>
+        <div data-date="2024-11-24" onclick="selectDate(this)">24</div>
+        <div data-date="2024-11-25" onclick="selectDate(this)">25</div>
+        <div data-date="2024-11-26" onclick="selectDate(this)">26</div>
+        <div data-date="2024-11-27" onclick="selectDate(this)">27</div>
+        <div data-date="2024-11-28" onclick="selectDate(this)">28</div>
+        <div data-date="2024-11-29" onclick="selectDate(this)">29</div>
+        <div data-date="2024-11-30" onclick="selectDate(this)">30</div>
+    </div>
+
+    <!-- 선택한 날짜를 저장하는 히든 필드 -->
+    <input type="hidden" name="selectedDate" id="selectedDate" required>
+
+    <!-- 좌석 선택 -->
+    <label for="seatGrade">좌석 등급:</label>
+    <select name="seatGrade" id="seatGrade" required>
+        <option value="A">A 등급 - 100,000원</option>
+        <option value="B">B 등급 - 50,000원</option>
+        <option value="C">C 등급 - 30,000원</option>
+    </select>
+
+    <br><br>
+    <button type="submit">결제 페이지로 이동</button>
+</form>
+
+<script>
+    function selectDate(dateElement) {
+        const selected = document.querySelector('.calendar .selected');
+        if (selected) {
+            selected.classList.remove('selected');
+        }
+        dateElement.classList.add('selected');
+        document.getElementById('selectedDate').value = dateElement.dataset.date;
+
+        // 좌석표를 팝업으로 띄우기
+        const seatPopupUrl = `seatmap?date=${dateElement.dataset.date}`;
+        window.open(seatPopupUrl, '좌석표', 'width=1000,height=600,resizable=yes,scrollbars=yes');
+
+    }
+</script>
+
+</body>
+</html>

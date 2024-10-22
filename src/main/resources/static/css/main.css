@@ -1,0 +1,323 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.logo-container img {
+    width: 200px; /* 이미지 크기를 조정 */
+    height: 30px;
+    height: auto;
+}
+
+.func-btn {
+    text-align: right;
+    right: 50px; /* 오른쪽에서 20px 떨어지게 설정 */
+    top: 70px; /* 상단에서 20px 떨어지게 설정 */
+
+}
+
+.func-btn a {
+    color: black; /* 링크 색상을 검은색으로 고정 */
+    text-decoration: none; /* 밑줄 제거 */
+    margin: 5px;
+
+}
+
+.func-btn a:hover,
+.func-btn a:visited,
+.func-btn a:active {
+    color: black; /* 링크 상태에 상관없이 항상 검은색 유지 */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    text-align: center;
+}
+
+header h1 {
+    text-align: right;
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    background-color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+nav a {
+
+    color: black;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body h1{
+    display: flex;            /* Flexbox 사용 */
+    flex-direction: column;   /* 세로 방향으로 정렬 */
+    align-items: center;      /* 수평 중앙 정렬 */
+    text-align: center;       /* 텍스트 중앙 정렬 */
+    margin-top: 20px;        /* 상단 여백 추가 (선택 사항) */
+}
+
+.event-buttons {
+    display: flex;            /* Flexbox 사용 */
+    justify-content: center;  /* 중앙 정렬 */
+    margin-top: 20px;        /* 버튼들 위에 여백 추가 (선택 사항) */
+}
+
+
+.event-buttons button {
+    background-color: #ffffff; /* 버튼 배경은 노란색 */
+    color: #000; /* 버튼 텍스트는 검은색 */
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 12px; /* 테두리를 둥글게 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 약간의 그림자 */
+    border: none; /* 테두리 제거 */
+    margin-top: 20px; /* div와 버튼 간의 거리 */
+}
+
+.event-buttons button.active {
+    background-color: #ffa500;   /* 선택된 버튼 색상 */
+    color: #000000;                 /* 선택된 버튼 텍스트 색상 */
+    border: 1px solid #ffa500;   /* 선택된 버튼 테두리 색상 */
+}
+
+.video-buttons {
+    display: flex;            /* Flexbox 사용 */
+    justify-content: center;  /* 중앙 정렬 */
+    margin-top: 20px;        /* 버튼들 위에 여백 추가 (선택 사항) */
+}
+
+
+.video-buttons button {
+    background-color: #ffffff; /* 버튼 배경은 노란색 */
+    color: #000; /* 버튼 텍스트는 검은색 */
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 12px; /* 테두리를 둥글게 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 약간의 그림자 */
+    border: none; /* 테두리 제거 */
+    margin-top: 20px; /* div와 버튼 간의 거리 */
+}
+
+.video-buttons button.active {
+    background-color: #ffa500;   /* 선택된 버튼 색상 */
+    color: #000000;                 /* 선택된 버튼 텍스트 색상 */
+    border: 1px solid #ffa500;   /* 선택된 버튼 테두리 색상 */
+}
+
+
+button:hover {
+    background-color: #ffa500; /* 호버 시 오렌지색 */
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+#event-lists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.event-list {
+    display: flex; /* Flexbox로 설정 */
+    justify-content: center; /* 중앙 정렬 */
+    flex-wrap: wrap; /* 줄 바꿈 설정 */
+    flex-direction: row; /* 가로 방향으로 정렬 */
+}
+
+
+.event {
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.event img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event h2 {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.event p {
+    font-size: 14px;
+    color: #666;
+}
+
+
+footer {
+    background-color: #f1e863;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+.slider__wrap {
+    position: relative;
+    width: 100%; /* 슬라이더가 부모 요소의 너비를 100% 차지하도록 설정 */
+    height: auto; /* 슬라이더의 높이 설정 */
+    overflow: hidden;
+    margin: auto; /* 중앙 정렬 */
+}
+
+.slider__img {
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slider__inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider {
+    min-width: 100%;
+    height: 100%;
+}
+
+.slider img {
+    width: 100%; /* 이미지의 너비를 슬라이더 너비에 맞게 설정 */
+    height: 100%; /* 이미지의 높이를 슬라이더 높이에 맞게 설정 */
+    object-fit: cover; /* 이미지가 슬라이더를 가득 채우도록 설정 */
+}
+
+.slider__btn a {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.slider__btn a.prev {
+    left: 10px;
+}
+
+.slider__btn a.next {
+    right: 10px;
+}
+
+.slider__btn a:hover {
+    background: rgba(38, 52, 103, 0.6);
+}
+
+.slider__dot {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slider__dot .dot {
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    border-radius: 50%;
+    margin: 2px;
+    transition: background 0.3s;
+}
+
+.slider__dot .dot.active {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.review-list {
+    display: flex;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    justify-content: space-between; /* 여백을 자동으로 배분 */
+    margin: 20px; /* 여백 추가 */
+}
+
+.review-item {
+    /* 기존 스타일 유지 */
+    width: calc(50% - 10px); /* 두 개의 아이템이 한 줄에 배치되도록 설정 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 계산 */
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px; /* 내부 여백 추가 */
+    margin-bottom: 20px; /* 아래쪽 여백 추가 */
+    background-color: #f9f9f9; /* 배경색 추가 */
+}
+
+.review-content {
+    display: -webkit-box; /* Flexbox 대체 */
+    -webkit-box-orient: vertical; /* 세로 방향으로 배치 */
+    -webkit-line-clamp: 5; /* 줄 수 제한 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* ...으로 표시 */
+    height: auto; /* 기본 높이 유지 */
+    margin-bottom: 5px; /* 하단 여백 추가 */
+}
+
+
+.review-item h3 {
+    margin: 0; /* 제목의 기본 여백 제거 */
+}
+
+.review-author,
+.review-rating {
+    margin-top: 5px; /* 상단 여백 추가 */
+    color: #777; /* 글자색 변경 */
+}
+
+.video-container {
+    display: flex; /* 가로로 나열하기 위해 flex 사용 */
+    justify-content: center; /* 중앙 정렬 */
+    gap: 20px; /* 각 iframe 사이의 간격 설정 */
+    margin: 20px auto; /* 상하 여백 및 자동 좌우 여백 */
+    max-width: 960px; /* 최대 너비 설정 (선택 사항) */
+}
+
+
+.video-container iframe {
+    border-radius: 15px; /* 테두리 둥글게 */
+    border: 2px solid #ccc; /* 테두리 색상 및 두께 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}

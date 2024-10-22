@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>좌석표</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* 배경 색을 통일 */
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #ffcc00; /* 날짜 텍스트 강조 */
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .seat-map {
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 2px solid #ffeb3b; /* 좌석표 테두리 색상 */
+            padding: 20px;
+            background-color: #fffde7; /* 좌석표 배경색 */
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: center; /* 좌석을 가운데 정렬 */
+            margin-bottom: 10px;
+        }
+
+        .seat {
+            padding: 15px;
+            background-color: #fff8e1; /* 좌석 기본 배경색 */
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-right: 5px;
+            width: 50px; /* 좌석 크기 고정 */
+            height: 50px; /* 좌석 크기 고정 */
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .seat:hover {
+            background-color: #ffeb3b; /* 좌석 호버 시 강조 색상 */
+        }
+
+        .seat.selected {
+            background-color: #ffcc00; /* 선택된 좌석 색상 */
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 선택된 좌석 강조 */
+        }
+
+        .seat:last-child {
+            margin-right: 0; /* 마지막 좌석의 오른쪽 여백 제거 */
+        }
+
+    </style>
+</head>
+<body>
+
+<h3>날짜: <span id="dateDisplay"></span></h3> <!-- 선택한 날짜를 표시 -->
+
+<div class="seat-map" id="seatMap"></div> <!-- 좌석표 영역 -->
+
+<!-- 선택한 좌석 정보를 저장하는 히든 필드 -->
+<input type="hidden" id="selectedSeat" name="selectedSeat">
+
+<script>
+    function createSeatMap() {
+        const seatMap = document.getElementById('seatMap');
+        let seatCount = 10; // 첫 열의 좌석 수
+
+        // 10개의 행을 생성하며, 각 행마다 좌석 수를 제어 (2행마다 좌석 수 증가)
+        for (let row = 1; row <= 9; row++) {
+            // 행을 위한 div 생성
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('seat-row');
+
+            // 각 행마다 좌석 생성
+            for (let seat = 1; seat <= seatCount; seat++) {
+                const seatElement = document.createElement('div');
+                seatElement.classList.add('seat');
+                seatElement.dataset.seat = `Row${row}-Seat${seat}`;
+                seatElement.innerText = seat;
+
+                // 좌석 클릭 시 선택 처리
+                seatElement.onclick = function() {
+                    const selected = document.querySelector('.seat.selected');
+                    if (selected) {
+                        selected.classList.remove('selected');
+                    }
+                    seatElement.classList.add('selected');
+                    document.getElementById('selectedSeat').value = seatElement.dataset.seat;
+                };
+
+                // 좌석을 해당 행에 추가
+                rowDiv.appendChild(seatElement);
+            }
+
+            // 좌석 수 증가: 2행마다 1좌석씩 증가
+            if (row % 2 === 0) {
+                seatCount++;
+            }
+
+            // 행을 좌석표에 추가
+            seatMap.appendChild(rowDiv);
+        }
+    }
+
+    // 페이지 로드 시 좌석표 생성
+    document.addEventListener('DOMContentLoaded', function() {
+        createSeatMap();
+    });
+</script>
+
+</body>
+</html>
