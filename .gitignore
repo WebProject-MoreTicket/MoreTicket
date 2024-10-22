@@ -9,6 +9,7 @@ build/
 application.properties
 application-jelly.properties
 application-API-KEY.properties
+MoreTicketSetvetKEY.pem
 
 ### STS ###
 .apt_generated

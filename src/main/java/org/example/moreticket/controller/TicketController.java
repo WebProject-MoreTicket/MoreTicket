@@ -22,7 +22,7 @@ public class TicketController {
             return "redirect:/login";
         }
         // 좌석 선택 페이지로 이동
-        return "ticket";
+        return "Mainfunc/ticket";
     }
 
     @GetMapping("/checkLogin")
@@ -49,7 +49,7 @@ public class TicketController {
         model.addAttribute("seatGrade", seatGrade);
         model.addAttribute("amount", amount);
 
-        return "payment";
+        return "Mainfunc/payment";
     }
 
     @GetMapping("/payment")
@@ -60,7 +60,7 @@ public class TicketController {
         model.addAttribute("selectedDate", "2024-10-10");
         model.addAttribute("concertId", 1L);
 
-        return "payment";
+        return "Mainfunc/payment";
     }
 
 
@@ -71,7 +71,7 @@ public class TicketController {
     public String showSeatMap(@RequestParam("date") String date, Model model) {
         // 좌석표를 구성하는 데 필요한 데이터가 있다면 여기에 추가 가능
         model.addAttribute("date", date); // 선택된 날짜를 모델에 추가
-        return "seatmap";  // seatmap.html을 반환
+        return "Mainfunc/seatmap";  // seatmap.html을 반환
     }
 
 }
