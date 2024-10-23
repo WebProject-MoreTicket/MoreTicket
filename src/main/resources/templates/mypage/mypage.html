@@ -4,28 +4,161 @@
     <meta charset="UTF-8">
     <title>마이페이지</title>
     <link rel="stylesheet" href="/css/mypage.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        header {
+            background-color: white;
+            padding: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center; /* 로고를 가운데 정렬 */
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 200px; /* 이미지 크기를 조정 */
+            height: auto;
+        }
+
+        .func-btn {
+            background-color: #f9f9f9; /* 배경색 설정 (예: 연한 회색) */
+            padding: 10px; /* 여백 추가 */
+            text-align: right; /* 오른쪽 정렬 */
+            border-bottom: 1px solid #ccc; /* 하단 구분선 추가 */
+        }
+
+        .func-btn a {
+            color: #545454; /* 링크 색상을 검은색으로 고정 */
+            text-decoration: none; /* 밑줄 제거 */
+            margin: 10px;
+        }
+
+        .func-btn a:hover,
+        .func-btn a:visited,
+        .func-btn a:active {
+            color: #545454; /* 링크 상태에 상관없이 항상 검은색 유지 */
+        }
+
+        .info-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .info-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .info-container input,
+        .info-container select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .info-container input[readonly] {
+            background-color: #e9ecef; /* 읽기 전용 필드 배경색 */
+        }
+
+        button {
+            background-color: #414141;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            margin-right: 10px; /* 버튼 간의 간격 */
+        }
+
+        button:hover {
+            background-color: #565656;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* 버튼을 가운데 정렬 */
+            margin-top: 20px;
+        }
+
+        .divider {
+            display: inline-block;
+            width: 1px;
+            height: 20px;
+            background-color: #ccc;
+            margin: 0 10px;
+        }
+    </style>
 </head>
-<div class="logo-container">
-    <a href="/">
-        <img src="/images/logo.jpg" alt="logo">
-    </a>
-</div>
 <body>
-<h2><span th:text="${session.loggedInUser.username}"></span> 님의 정보</h2>
+<div class="func-btn">
+    <div th:if="${session.loggedInUser == null}">
+        <a href="/login">로그인</a>
+        <span class="divider"></span>
+        <a href="/signup">회원가입</a>
+    </div>
+    <div th:if="${session.loggedInUser != null}">
+        <span th:text="'환영합니다, ' + ${session.loggedInUser.username} + '!'"></span>
+        <span class="divider"></span>
+        <a href="/logout">로그아웃</a>
+    </div>
+</div>
+<header>
+    <div class="logo-container">
+        <a href="/">
+            <img src="/images/logo.jpg" alt="logo">
+        </a>
+    </div>
+</header>
 
 <div class="info-container">
-    <p>아이디: <span th:text="${session.loggedInUser.userId}"></span></p>
-    <p>이름: <span th:text="${session.loggedInUser.username}"></span></p>
-    <p>핸드폰 번호: <span th:text="${session.loggedInUser.userPhoneNumber}"></span></p>
-    <p>이메일: <span th:text="${session.loggedInUser.email}"></span></p>
-    <p>생년월일: <span th:text="${session.loggedInUser.userBirthDate}"></span></p>
-    <p>성별: <span th:text="${session.loggedInUser.gender}"></span></p>
+    <label for="ID">아이디</label>
+    <input type="text" id="ID" th:value="${session.loggedInUser.userId}" readonly>
+
+    <label for="name">이름</label>
+    <input type="text" id="name" th:value="${session.loggedInUser.username}" readonly>
+
+    <label for="phone">핸드폰 번호</label>
+    <input type="tel" id="phone" th:value="${session.loggedInUser.userPhoneNumber}" readonly>
+
+    <label for="email">이메일</label>
+    <input type="email" id="email" th:value="${session.loggedInUser.email}" readonly>
+
+    <label for="birth">생년월일</label>
+    <input type="date" id="birth" th:value="${session.loggedInUser.userBirthDate}" readonly>
+
+    <label for="gender">성별</label>
+    <input type="text" id="gender" th:value="${session.loggedInUser.gender}" readonly>
+
+    <div class="button-container">
+        <button onclick="openPopup()">예매내역</button>
+    </div>
 </div>
 
-<button onclick="location.href='mypage/tickets'">예매내역</button>
-
-<form th:action="@{/logout}" method="post">
-    <button type="submit">로그아웃</button>
-</form>
 </body>
+<script>
+    function openPopup() {
+        window.open('mypage/tickets', '예매내역', 'width=600,height=300');
+    }
+</script>
 </html>

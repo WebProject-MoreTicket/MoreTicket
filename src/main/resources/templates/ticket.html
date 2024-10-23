@@ -5,24 +5,30 @@
     <title>좌석 및 날짜 선택</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fff; /* 밝은 노란색 배경 */
-            color: #000;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* 밝은 회색 배경 */
+            color: #333;
             margin: 0;
             padding: 0;
             text-align: center;
         }
 
         h2 {
-            color: #000; /* 콘서트 이름 강조 */
-            font-size: 24px;
+            color: #2c3e50; /* 짙은 색상 */
+            font-size: 28px;
             margin-top: 20px;
         }
 
         h3 {
-            color: #000; /* 날짜 선택 강조 */
-            font-size: 20px;
+            color: #2980b9; /* 파란색 */
+            font-size: 22px;
             margin-bottom: 10px;
+        }
+
+        .logo-container img {
+            width: 300px;
+            height: auto;
+            margin-bottom: 20px;
         }
 
         .calendar {
@@ -35,19 +41,21 @@
 
         .calendar div {
             padding: 15px;
-            border: 1px solid #ccc;
-            background-color: #fff8e1; /* 기본 셀 배경색 */
+            border: 1px solid #bdc3c7; /* 연한 회색 테두리 */
+            background-color: #ecf0f1; /* 기본 셀 배경색 */
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px; /* 모서리 둥글게 */
         }
 
         .calendar div:hover {
-            background-color: #ffeb3b; /* 호버 시 노란색 강조 */
+            background-color: #3498db; /* 호버 시 파란색 강조 */
+            color: white; /* 호버 시 글자색 흰색 */
         }
 
         .calendar div.selected {
-            background-color: #ffcc00; /* 선택된 날짜의 배경색 */
+            background-color: #2980b9; /* 선택된 날짜의 배경색 */
             color: #fff;
             font-weight: bold;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 선택된 날짜 강조 */
@@ -57,55 +65,45 @@
             font-weight: bold;
             margin-top: 20px;
             display: block;
-            color: #ffcc00; /* 좌석 선택 라벨 색상 */
+            color: #34495e; /* 어두운 색상 */
         }
 
         select {
             padding: 10px;
             font-size: 16px;
             margin-top: 10px;
-            background-color: #fffde7; /* 옅은 노란색 배경 */
-            border: 1px solid #ffeb3b;
+            background-color: #ecf0f1; /* 옅은 회색 배경 */
+            border: 1px solid #bdc3c7;
             border-radius: 5px;
+            width: 100%; /* 전체 너비 */
+            max-width: 300px; /* 최대 너비 */
+            margin-left: auto; /* 가운데 정렬 */
+            margin-right: auto; /* 가운데 정렬 */
         }
 
         button {
             display: block;
             margin: 30px auto;
             padding: 10px 20px;
-            background-color: #ffcc00; /* 버튼 노란색 */
-            color: #000;
+            background-color: #27ae60; /* 버튼 초록색 */
+            color: white; /* 버튼 글자색 흰색 */
             border: none;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            width: 100%; /* 전체 너비 */
+            max-width: 300px; /* 최대 너비 */
         }
 
         button:hover {
-            background-color: #ffa500; /* 버튼 호버 시 더 진한 노란색 */
-        }
-
-        /*.logo-container {*/
-        /*    text-align: left;*/
-        /*}*/
-
-        .logo-container img{
-            width: 300px;
-            height: auto;
+            background-color: #219653; /* 버튼 호버 시 더 진한 초록색 */
         }
     </style>
-
 </head>
-<div class="logo-container">
-    <a href="/static">
-        <img src="/images/logo.jpg" alt="logo">
-    </a>
-</div>
 <body>
-<h2>콘서트 이름</h2>
-
 <form action="payment" method="post">
+
     <!-- 날짜 선택 -->
     <h3>날짜 선택</h3>
     <div class="calendar">
@@ -154,7 +152,6 @@
     </select>
 
     <br><br>
-    <button type="submit">결제 페이지로 이동</button>
 </form>
 
 <script>
@@ -167,9 +164,7 @@
         document.getElementById('selectedDate').value = dateElement.dataset.date;
 
         // 좌석표를 팝업으로 띄우기
-        const seatPopupUrl = `seatmap?date=${dateElement.dataset.date}`;
-        window.open(seatPopupUrl, '좌석표', 'width=1000,height=600,resizable=yes,scrollbars=yes');
-
+        location.href = `seatmap?date=${dateElement.dataset.date}`
     }
 </script>
 

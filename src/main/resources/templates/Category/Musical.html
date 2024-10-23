@@ -6,12 +6,27 @@
     <link rel="stylesheet" href="/css/sports.css">
 </head>
 <body>
-<div class="logo-container">
-    <a href="/">
-        <img src="/images/logo.jpg" alt="logo">
-    </a>
+<div class="func-btn">
+    <div th:if="${session.loggedInUser == null}">
+        <a href="/login">로그인</a>
+        <span class="divider"></span> <!-- 구분선 추가 -->
+        <a href="/signup">회원가입</a>
+    </div>
+    <div th:if="${session.loggedInUser != null}">
+        <span th:text="'환영합니다 , ' + ${session.loggedInUser.username} + '!'"></span>
+        <a href="mypage">마이페이지</a>
+        <span class="divider"></span> <!-- 구분선 추가 -->
+        <a href="/logout">로그아웃</a>
+    </div>
 </div>
 
+<header>
+    <div class="logo-container">
+        <a href="/">
+            <img src="/images/logo.jpg" alt="logo">
+        </a>
+    </div>
+</header>
 <!-- 경기 목록 -->
 <ul id="match-list">
     <li class="match-item">

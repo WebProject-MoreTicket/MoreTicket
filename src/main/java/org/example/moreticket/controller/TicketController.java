@@ -38,7 +38,10 @@ public class TicketController {
 
 
     @PostMapping("/payment")
-    public String showPaymentPage(@RequestParam("seatGrade") String seatGrade, Model model) {
+    public String showPaymentPage(@RequestParam("seatRow") String seatRow,
+                                  @RequestParam("seatNumber") String seatNumber,
+                                  @RequestParam("seatGrade") String seatGrade,
+                                  @RequestParam("selectedDate") String selectedDate, Model model) {
         int amount = 0;
         switch (seatGrade) {
             case "A": amount = 100000; break;
@@ -48,6 +51,9 @@ public class TicketController {
 
         model.addAttribute("seatGrade", seatGrade);
         model.addAttribute("amount", amount);
+        model.addAttribute("selectedDate", selectedDate);
+        model.addAttribute("seatRow", seatRow);
+        model.addAttribute("seatNumber", seatNumber);
 
         return "payment";
     }

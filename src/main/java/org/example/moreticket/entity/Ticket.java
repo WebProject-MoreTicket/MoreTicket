@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 기본 키로 auto_increment 사용
+    @Column(name = "ticket_id")
+    private Long ticketId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -29,10 +30,12 @@ public class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "seat_id")  // Seat와의 관계 정의
+    private Seat seat;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
 }
-

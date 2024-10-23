@@ -11,25 +11,31 @@
 }
 
 .func-btn {
-    text-align: right;
-    right: 50px; /* 오른쪽에서 20px 떨어지게 설정 */
-    top: 70px; /* 상단에서 20px 떨어지게 설정 */
+    background-color: #f9f9f9; /* 배경색 설정 (예: 연한 회색) */
+    padding: 10px; /* 여백 추가 */
+    text-align: right; /* 오른쪽 정렬 */
+    border-bottom: 1px solid #ccc; /* 하단 구분선 추가 */
 
 }
 
 .func-btn a {
-    color: black; /* 링크 색상을 검은색으로 고정 */
+    color: #545454; /* 링크 색상을 검은색으로 고정 */
     text-decoration: none; /* 밑줄 제거 */
-    margin: 5px;
-
+    margin: 10px;
 }
 
 .func-btn a:hover,
 .func-btn a:visited,
 .func-btn a:active {
-    color: black; /* 링크 상태에 상관없이 항상 검은색 유지 */
+    color: #545454; /* 링크 상태에 상관없이 항상 검은색 유지 */
 }
-
+.divider {
+    display: inline-block; /* 인라인 블록으로 설정 */
+    width: 1px; /* 구분선 두께 */
+    height: 20px; /* 구분선 높이 */
+    background-color: #ccc; /* 구분선 색상 */
+    margin: 0 10px; /* 구분선과 링크 간의 여백 */
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -54,15 +60,28 @@ nav {
     background-color: white;
     padding: 10px;
     text-align: left;
+    border-top: 1px solid #ccc; /* 헤더와 구분되는 회색 선 추가 */
 }
 
 nav a {
-
-    color: black;
+    color: #333; /* 텍스트 색상을 어두운 회색으로 */
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 18px; /* 폰트 크기 조정 */
+    position: relative; /* 하단 구분선을 위한 position 설정 */
 }
+
+nav a:not(:last-child)::after {
+    content: ''; /* 구분선 추가 */
+    display: inline-block;
+    width: 1px; /* 구분선의 두께 */
+    height: 20px; /* 구분선의 높이 */
+    background-color: #ccc; /* 구분선 색상 */
+    margin-left: 35px; /* 구분선과 텍스트 간격 */
+    vertical-align: middle; /* 세로 정렬 */
+}
+
 
 body h1{
     display: flex;            /* Flexbox 사용 */
@@ -179,7 +198,7 @@ button:hover {
 
 
 footer {
-    background-color: #f1e863;
+    background-color: #eaeaea;
     color: black;
     text-align: center;
     padding: 10px;
@@ -189,7 +208,9 @@ footer {
     width: 100%;
 }
 
-
+#sliderType05 {
+    border-top: 2px solid black; /* 검정색 상단 테두리 추가 */
+}
 .slider__wrap {
     position: relative;
     width: 100%; /* 슬라이더가 부모 요소의 너비를 100% 차지하도록 설정 */
