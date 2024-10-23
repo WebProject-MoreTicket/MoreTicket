@@ -46,28 +46,28 @@ public class UserController {
 //    }
 
     @PostMapping("/signup")
-    @ResponseBody
-    public ResponseEntity<String> signup(@ModelAttribute User user){
+    public String signup(@ModelAttribute User user) {
         // 유저 ID 중복 확인
         if (userRepository.findByUserId(user.getUserId()) != null) {
-            return ResponseEntity.badRequest().body("유저 ID가 중복되었습니다!");
+//            return "redirect:/signup?error=id"; // 에러 메시지를 포함한 리다이렉트
         }
 
         // 이메일 중복 확인
         if (userRepository.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("이메일이 중복되었습니다!");
+//            return "redirect:/signup?error=email"; // 에러 메시지를 포함한 리다이렉트
         }
 
         // 전화번호 중복 확인
         if (userRepository.findByUserPhoneNumber(user.getUserPhoneNumber()) != null) {
-            return ResponseEntity.badRequest().body("전화번호가 중복되었습니다!");
+//            return "redirect:/signup?error=phone"; // 에러 메시지를 포함한 리다이렉트
         }
 
         // 중복이 없으면 회원가입 진행
         userRepository.save(user);
-        return ResponseEntity.ok("회원가입이 완료되었습니다!");
-    }
 
+        // 회원가입 성공 후 메인 페이지로 리다이렉트
+        return "Main";
+    }
     // 로그인 처리
     @PostMapping("/login")
     public String login(@RequestParam String userId, @RequestParam String password, Model model, HttpSession session) {
