@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>좌석표</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            width: 900px;
+            height: 500px;
+            overflow: auto;
+        }
+
+        .seat-map {
+            margin-bottom: 10px;
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .seat {
+            padding: 8px;
+            background-color: #dcdcdc;
+            text-align: center;
+            border: 2px solid #aaa;
+            cursor: pointer;
+            margin-right: 3px;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .seat:last-child {
+            margin-right: 0;
+        }
+
+        .seat.selected {
+            background-color: #2ecc71;
+            color: white;
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+
+        .loading {
+            color: #3498db;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .seat-info {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #363636;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #525252;
+        }
+
+        h3 {
+            color: #2980b9;
+            font-size: 18px;
+        }
+
+        input[type="hidden"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="seat-map" id="seatMap"></div>
+
+<h3>날짜: <span id="dateDisplay"></span></h3>
+<p class="seat-info">선택한 좌석: <span id="selectedSeatInfo">없음</span></p>
+<p class="seat-info">좌석 등급: <span id="seatGradeDisplay">선택 안됨</span></p>
+
+<form action="payment" method="post">
+    <input type="hidden" id="seatRow" name="seatRow">
+    <input type="hidden" id="seatNumber" name="seatNumber">
+    <input type="hidden" id="seatGrade" name="seatGrade">
+    <input type="hidden" id="selectedDate" name="selectedDate">
+
+    <br><br>
+    <button type="submit">결제 페이지로 이동</button>
+</form>
+
+<p id="loadingMessage" class="loading">예약 처리 중입니다...</p>
+
+<script>
+    // URL 쿼리에서 선택한 날짜를 가져오는 함수
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // 선택한 날짜를 표시하고 히든 필드에 저장
+    const selectedDate = getQueryParam('date') || new Date().toISOString().split('T')[0];
+    document.getElementById('dateDisplay').innerText = selectedDate;
+    document.getElementById('selectedDate').value = selectedDate;
+
+    function createSeatMap() {
+        const seatMap = document.getElementById('seatMap');
+        let seatCount = 10;
+
+        const seatGrades = {
+            1: 'C', 2: 'C', 3: 'C', 4: 'C', 5: 'A',
+            6: 'A', 7: 'A', 8: 'B', 9: 'B'
+        };
+
+        for (let row = 1; row <= 9; row++) {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('seat-row');
+
+            for (let seat = 1; seat <= seatCount; seat++) {
+                const seatElement = document.createElement('div');
+                seatElement.classList.add('seat');
+                seatElement.dataset.seat = `Row${row}-Seat${seat}`;
+                seatElement.dataset.row = row;
+                seatElement.dataset.seatNumber = seat;
+                seatElement.dataset.grade = seatGrades[row];
+                seatElement.innerText = `${seat}`;
+
+                seatElement.onclick = function () {
+                    const selected = document.querySelector('.seat.selected');
+                    if (selected) selected.classList.remove('selected');
+                    seatElement.classList.add('selected');
+
+                    document.getElementById('selectedSeatInfo').innerText = `Row${row} - Seat${seat}`;
+                    document.getElementById('seatGradeDisplay').innerText = seatGrades[row];
+
+                    document.getElementById('seatRow').value = row;
+                    document.getElementById('seatNumber').value = seat;
+                    document.getElementById('seatGrade').value = seatGrades[row];
+                    document.getElementById('selectedDate').value = selectedDate;
+                };
+
+                rowDiv.appendChild(seatElement);
+            }
+
+            if (row % 2 === 0) seatCount++;
+            seatMap.appendChild(rowDiv);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', createSeatMap);
+</script>
+
+
+</body>
+</html>

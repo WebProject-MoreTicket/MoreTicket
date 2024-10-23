@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>선택한 경기 정보</title>
+  <link rel="stylesheet" href="/css/firstsm.css">
+</head>
+<body>
+<div class="func-btn">
+  <div th:if="${session.loggedInUser == null}">
+    <a href="/login">로그인</a>
+    <span class="divider"></span> <!-- 구분선 추가 -->
+    <a href="/signup">회원가입</a>
+  </div>
+  <div th:if="${session.loggedInUser != null}">
+    <span th:text="'환영합니다 , ' + ${session.loggedInUser.username} + '!'"></span>
+    <a href="mypage">마이페이지</a>
+    <span class="divider"></span> <!-- 구분선 추가 -->
+    <a href="/logout">로그아웃</a>
+  </div>
+</div>
+
+<header>
+  <div class="logo-container">
+    <a href="/">
+      <img src="/images/logo.jpg" alt="logo">
+    </a>
+  </div>
+</header>
+<!-- 선택한 경기 정보를 표시하는 영역 -->
+<div id="match-info">
+  <!-- 경기 이미지 -->
+  <img class="match-image" id="match-image" src="/images/soc.jpg" alt="match image">
+
+  <!-- 오른쪽 경기 정보 -->
+  <div class="match-details">
+    <h2 id="match-detail">공연 정보</h2>
+    <p id="match-location"></p>
+    <p id="match-date"></p>
+    <p id="match-time"></p>
+    <p id="match-seat-price"></p>
+  </div>
+</div>
+
+<!-- 예매하기 버튼 -->
+<div id="ticket-selection">
+  <h2>예매하기</h2>
+  <button type="button" onclick="handleTicket()">예매하기</button>
+  <button type="button" onclick="handleExit()">뒤로가기</button>
+</div>
+<img class="match-infoi" id="match-infoi" src="/images/soc.jpg" alt="match infoi">
+<script>
+  // URL에서 matchId 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const itemId = urlParams.get('itemId');
+
+  // 경기 정보 표시
+  function displayItemInfo() {
+    const matchDetailEl = document.getElementById('match-detail');
+    const matchLocationEl = document.getElementById('match-location');
+    const matchDateEl = document.getElementById('match-date');
+    const matchTimeEl = document.getElementById('match-time');
+    const matchSeatPriceEl = document.getElementById('match-seat-price');
+    const matchImageEl = document.getElementById('match-image'); // 이미지 요소
+    const matchInfoImageEl = document.getElementById('match-infoi');
+
+    let matchDetails = '';
+    let matchLocation = '';
+    let matchDate = '';
+    let matchTime = '';
+    let matchSeatPrice = '';
+    let matchImageSrc = ''; // 이미지 경로 변수 추가
+    let matchInfoImageSrc = '';
+
+    // matchId에 따라 경기 정보를 다르게 표시
+    switch (itemId) {
+      case '1':
+        matchDetails = '뮤지컬 〈킹키부츠〉';
+        matchLocation = '블루스퀘어 신한카드홀';
+        matchDate = '2024.09.07 ~2024.11.10';
+        matchTime = '155분(인터미션 20분 포함)';
+        matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+        matchImageSrc = '/images/kink.jpg'; // 이미지 경로 설정
+        matchInfoImageSrc = 'images/kinkinf.jpg';
+        break;
+      case '2':
+        matchDetails = '뮤지컬 〈광화문연가〉';
+        matchLocation = '디큐브 링크아트센터';
+        matchDate = '2024.10.23 ~2025.01.05';
+        matchTime = '160분(인터미션 20분 포함)';
+        matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+        matchImageSrc = '/images/gwang.jpg'; // 두 번째 이미지
+        matchInfoImageSrc = 'images/gwanginf.jpg';
+        break;
+      case '3':
+        matchDetails = '뮤지컬 〈빨래〉';
+        matchLocation = '인터파크 유니플렉스 2관';
+        matchDate = '2024.06.07 ~2024.12.29';
+        matchTime = '165분(인터미션 15분 포함)';
+        matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+        matchImageSrc = '/images/wash.jpg'; // 세 번째 이미지
+        matchInfoImageSrc = 'images/washinf.jpg';
+        break;
+
+      case '33':
+        matchDetails = '뮤지컬 〈이프덴〉';
+        matchLocation = '홍익대 대학로 아트센터 대극장';
+        matchDate = '2024.12.03 ~2025.03.02';
+        matchTime = '165분(인터미션 15분 포함)';
+        matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+        matchImageSrc = '/images/ifthen.jpg'; // 세 번째 이미지
+        matchInfoImageSrc = 'images/iftheninf.jpg';
+        break;
+      default:
+        matchDetails = '선택된 공연이 없습니다.';
+        matchImageSrc = '/images/default.jpg'; // 기본 이미지
+    }
+
+    matchDetailEl.innerHTML = `${matchDetails}`;
+    matchLocationEl.innerHTML = `장소: ${matchLocation}`;
+    matchDateEl.innerHTML = `날짜: ${matchDate}`;
+    matchTimeEl.innerHTML = `공연 시간: ${matchTime}`;
+    matchSeatPriceEl.innerHTML = `가격: ${matchSeatPrice}`;
+
+
+
+    console.log("Selected image source:", matchImageSrc); // 이미지 경로 확인
+    console.log("Selected image source:", matchInfoImageSrc); // 이미지 경로 확인
+    matchImageEl.src = matchImageSrc;
+    matchInfoImageEl.src = matchInfoImageSrc;
+
+  }
+
+  displayItemInfo();
+
+  function handleTicket() {
+    // 서버에 로그인 여부를 확인하는 요청을 보냄
+    fetch('/checkLogin')
+            .then(response => {
+              if (response.ok) {
+                // 로그인 상태이면 결제 페이지로 이동
+                // matchId 변수 수정
+                openPopup()
+              } else {
+                // 로그인되어 있지 않으면 경고창 띄우고 로그인 페이지로 리다이렉트
+                alert('로그인이 필요합니다.');
+                location.href = 'login';
+              }
+            })
+            .catch(error => {
+              console.error('Error checking login status:', error);
+            });
+  }
+  function openPopup() {
+    window.open(`ticket?matchId=${itemId}`, '예매내역', 'width=900,height=500');
+  }
+  function handleExit() {
+    location.href = '/';
+  }
+</script>
+
+</body>
+</html>

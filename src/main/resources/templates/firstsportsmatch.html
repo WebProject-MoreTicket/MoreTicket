@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>선택한 경기 정보</title>
+    <link rel="stylesheet" href="/css/firstsm.css">
+</head>
+<body>
+
+<div class="logo-container">
+    <a href="/">
+        <img src="/images/logo.jpg" alt="logo">
+    </a>
+</div>
+
+<!-- 선택한 경기 정보를 표시하는 영역 -->
+<div id="match-info">
+    <!-- 경기 이미지 -->
+    <img class="match-image" src="/images/soc.jpg" alt="match image">
+
+    <!-- 오른쪽 경기 정보 -->
+    <div class="match-details">
+        <h2>경기 정보</h2>
+        <p id="match-detail"></p>
+        <p id="match-location"></p>
+        <p id="match-date"></p>
+        <p id="match-seat-price"></p>
+    </div>
+</div>
+
+<!-- 예매하기 버튼 -->
+<div id="ticket-selection">
+    <h2>예매하기</h2>
+    <button type="button" onclick="handleTicket()">예매하기</button>
+    <button type="button" onclick="handleExit()">뒤로가기</button>
+</div>
+
+<script>
+    // URL에서 matchId 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const matchId = urlParams.get('matchId');
+
+    // 경기 정보 표시
+    function displayMatchInfo() {
+        const matchDetailEl = document.getElementById('match-detail');
+        const matchLocationEl = document.getElementById('match-location');
+        const matchDateEl = document.getElementById('match-date');
+        const matchSeatPriceEl = document.getElementById('match-seat-price');
+
+        let matchDetails = '';
+        let matchLocation = '';
+        let matchDate = '';
+        let matchSeatPrice = '';
+
+        // matchId에 따라 경기 정보를 다르게 표시
+        switch (matchId) {
+            case '1':
+                matchDetails = 'FC Bayern Munich VS Tottenham Hotspur';
+                matchLocation = 'Tottenham Hotspur Stadium';
+                matchDate = '2024-10-15';
+                matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+                break;
+            case '2':
+                matchDetails = 'Arsenal FC VS Tottenham Hotspur';
+                matchLocation = 'Emirates Stadium';
+                matchDate = '2024-11-01';
+                matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+                break;
+            case '3':
+                matchDetails = 'Real Madrid VS Barcelona';
+                matchLocation = 'Santiago Bernabéu';
+                matchDate = '2024-12-08';
+                matchSeatPrice = 'A등급 - 100,000<br><br>B등급 - 50,000<br><br>C등급 - 30,000';
+                break;
+            default:
+                matchDetails = '선택된 경기가 없습니다.';
+        }
+
+        matchDetailEl.innerHTML = `경기: ${matchDetails}`;
+        matchLocationEl.innerHTML = `장소: ${matchLocation}`;
+        matchDateEl.innerHTML = `날짜: ${matchDate}`;
+        matchSeatPriceEl.innerHTML = `가격: ${matchSeatPrice}`;
+    }
+
+    displayMatchInfo();
+
+    function handleTicket() {
+        // 서버에 로그인 여부를 확인하는 요청을 보냄
+        fetch('/checkLogin')
+            .then(response => {
+                if (response.ok) {
+                    // 로그인 상태이면 결제 페이지로 이동
+                    location.href = `/ticket?matchId=${matchId}`;
+                } else {
+                    // 로그인되어 있지 않으면 경고창 띄우고 로그인 페이지로 리다이렉트
+                    alert('로그인이 필요합니다.');
+                    location.href = '/login';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+            });
+    }
+
+    function handleExit() {
+        location.href = '/Sports';
+    }
+</script>
+
+</body>
+</html>

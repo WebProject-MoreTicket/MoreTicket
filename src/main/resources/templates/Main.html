@@ -4,321 +4,235 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>모아티켓</title>
-    <style>
-        .logo-container {
-        display: flex;
-        align-items: center;
-        }
-
-
-
-        .logo-container img {
-            width: 200px; /* 이미지 크기를 조정 */
-            height: 30px;
-            height: auto;
-        }
-
-        .func-btn {
-          position: fixed;   /* 화면에 고정 */
-          right: 50px;       /* 오른쪽에서 20px 떨어지게 설정 */
-          top: 70px;         /* 상단에서 20px 떨어지게 설정 */
-
-        }
-
-        .func-btn a {
-              color: black;         /* 링크 색상을 검은색으로 고정 */
-              text-decoration: none; /* 밑줄 제거 */
-              margin: 5px;
-              
-          }
-
-          .func-btn a:hover,
-          .func-btn a:visited,
-          .func-btn a:active {
-              color: black;         /* 링크 상태에 상관없이 항상 검은색 유지 */
-          }
-          
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: white;
-            padding: 20px;
-            color: black;
-            text-align: center;
-        }
-        header h1 {
-          text-align: right;
-            margin: 0;
-            font-size: 24px;
-        }
-        nav {
-            background-color: white;
-            padding: 10px;
-            text-align: left;
-        }
-        nav a {
-            
-            color: black;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 20px;
-        }
-        .event {
-            background-color: white;
-            padding: 20px;
-            margin: 10px;
-            width: 300px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .event img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .event h2 {
-            font-size: 18px;
-            margin: 15px 0;
-        }
-        .event p {
-            font-size: 14px;
-            color: #666;
-        }
-        footer {
-            background-color: #f1e863;
-            color: black;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-
-        .slider__wrap {
-    position: relative;
-    width: 100%; /* 슬라이더가 부모 요소의 너비를 100% 차지하도록 설정 */
-    max-width: 800px; /* 슬라이더의 최대 너비를 설정 */
-    height: 450px; /* 슬라이더의 높이 설정 */
-    overflow: hidden;
-    margin: auto; /* 중앙 정렬 */
-}
-
-.slider__img {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.slider__inner {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.slider {
-    min-width: 100%;
-    height: 100%;
-}
-
-.slider img {
-    width: 100%; /* 이미지의 너비를 슬라이더 너비에 맞게 설정 */
-    height: 100%; /* 이미지의 높이를 슬라이더 높이에 맞게 설정 */
-    object-fit: cover; /* 이미지가 슬라이더를 가득 채우도록 설정 */
-}
-        .slider__btn a {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.4);
-            color: #fff;
-            text-align: center;
-            line-height: 50px;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        .slider__btn a.prev {
-            left: 10px;
-        }
-        .slider__btn a.next {
-            right: 10px;
-        }
-        .slider__btn a:hover {
-            background: rgba(38, 52, 103, 0.6);
-        }
-        .slider__dot {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .slider__dot .dot {
-            width: 20px;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            display: inline-block;
-            border-radius: 50%;
-            margin: 2px;
-            transition: background 0.3s;
-        }
-        .slider__dot .dot.active {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-    </style>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const sliderWrap = document.querySelector(".slider__wrap");
-    const sliderImg = document.querySelector(".slider__img");
-    const sliderInner = document.querySelector(".slider__inner");
-    const sliders = document.querySelectorAll(".slider");
-    const sliderBtnPrev = document.querySelector(".prev");
-    const sliderBtnNext = document.querySelector(".next");
-    const sliderDot = document.querySelector(".slider__dot");
-
-    let currentIndex = 0;
-    const sliderCount = sliders.length;
-    const sliderWidth = sliderImg.offsetWidth;
-
-    // 슬라이더 초기 위치를 중앙으로 설정
-    function setInitialPosition() {
-        sliderInner.style.transform = `translateX(${-sliderWidth * currentIndex}px)`;
-    }
-
-    // 닷 메뉴 생성
-    function createDots() {
-        sliders.forEach((_, index) => {
-            const dot = document.createElement("a");
-            dot.href = "#";
-            dot.className = "dot";
-            if (index === 0) dot.classList.add("active");
-            sliderDot.appendChild(dot);
-        });
-    }
-
-    createDots();
-    setInitialPosition(); // 초기 위치 설정
-
-    // 슬라이더 이동
-    function gotoSlider(index) {
-        sliderInner.style.transform = `translateX(${-sliderWidth * index}px)`;
-        currentIndex = index;
-
-        // 닷 메뉴 활성화
-        const dots = document.querySelectorAll(".slider__dot .dot");
-        dots.forEach(dot => dot.classList.remove("active"));
-        dots[currentIndex].classList.add("active");
-    }
-
-    sliderBtnPrev.addEventListener("click", () => {
-        const prevIndex = (currentIndex - 1 + sliderCount) % sliderCount;
-        gotoSlider(prevIndex);
-    });
-
-    sliderBtnNext.addEventListener("click", () => {
-        const nextIndex = (currentIndex + 1) % sliderCount;
-        gotoSlider(nextIndex);
-    });
-
-    document.querySelectorAll(".slider__dot .dot").forEach((dot, index) => {
-        dot.addEventListener("click", (e) => {
-            e.preventDefault();
-            gotoSlider(index);
-        });
-    });
-});
-
-
-
-
-    </script>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/script/main.js" defer></script>
 </head>
 <body>
 
-<header>
-  <div class="logo-container">
-  <a href="main.html">
-    <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\KakaoTalk_20240909_143509861.png" alt="logo">
-</a>
-</div>
 <div class="func-btn">
-<a href="login.html">로그인</a>
-<a href="register.html">회원가입</a>
-<a href="mypage.html">마이페이지</a>
-   </div>
+    <div th:if="${session.loggedInUser == null}">
+        <a href="/login">로그인</a>
+        <span class="divider"></span> <!-- 구분선 추가 -->
+        <a href="/signup">회원가입</a>
+    </div>
+    <div th:if="${session.loggedInUser != null}">
+        <span th:text="'환영합니다 , ' + ${session.loggedInUser.username} + '!'"></span>
+        <a href="mypage">마이페이지</a>
+        <span class="divider"></span> <!-- 구분선 추가 -->
+        <a href="/logout">로그아웃</a>
+    </div>
+</div>
+
+<header>
+    <div class="logo-container">
+        <a href="/">
+            <img src="/images/logo.jpg" alt="logo">
+        </a>
+    </div>
 </header>
 
+
 <nav>
-    <a href="#">공연</a>
-    <a href="#">스포츠</a>
-    <a href="#">전시/행사</a>
-    <a href="#">영화</a>
+    <a href="Musical">뮤지컬</a>
+    <a href="Concert">콘서트</a>
+    <a href="Sports">스포츠</a>
+    <a href="Classic">클래식</a>
 </nav>
 
 <section id="sliderType05">
-  <div class="slider__wrap">
-      <div class="slider__img">
-          <div class="slider__inner">
-              <div class="slider" role="group" aria-label="1/5">
-                  <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\image.png" alt="이미지6">
-              </div>
-              <div class="slider" role="group" aria-label="2/5">
-                  <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\image2.png" alt="이미지7">
-              </div>
-              <div class="slider" role="group" aria-label="3/5">
-                  <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\image3.png" alt="이미지8">
-              </div>
-              <div class="slider" role="group" aria-label="4/5">
-                  <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\스크린샷 2024-09-16 200350.png" alt="이미지9">
-              </div>
-              <div class="slider" role="group" aria-label="5/5">
-                  <img src="C:\Users\jjm42\OneDrive\바탕 화면\웹프젝\스크린샷 2024-09-16 200413.png" alt="이미지10">
+    <div class="slider__wrap">
+        <div class="slider__img">
+            <div class="slider__inner">
+                <div class="slider" role="group" aria-label="1/6">
+                    <img src="/images/main1.jpg" alt="이미지6" onclick="selectItem(5)">
                 </div>
-              </div>
-          </div>
-          <div class="slider__btn">
-              <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
-              <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
-          </div>
-          <div class="slider__dot"></div>
-      </div>
-  </section>
+                <div class="slider" role="group" aria-label="2/6">
+                    <img src="/images/main2.jpg" alt="이미지7" onclick="selectItem(1)">
+                </div>
+                <div class="slider" role="group" aria-label="3/6">
+                    <img src="/images/main3.jpg" alt="이미지8" onclick="selectItem(7)">
+                </div>
+                <div class="slider" role="group" aria-label="4/6">
+                    <img src="/images/main4.jpg" alt="이미지9" onclick="selectItem(8)">
+                </div>
+                <div class="slider" role="group" aria-label="5/6">
+                    <img src="/images/chang.jpg" alt="이미지10" onclick="selectItem(13)">
+                </div>
+                <div class="slider" role="group" aria-label="6/6">
+                    <img src="/images/ifthenB.jpg" alt="이미지10" onclick="selectItem(33)">
+                </div>
+            </div>
+        </div>
+        <div class="slider__btn">
+            <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
+            <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+        </div>
+        <div class="slider__dot"></div>
+    </div>
+</section>
+<h1>장르별 인기</h1>
+<!-- 버튼들 -->
+<div class="event-buttons">
+    <button onclick="showEvents('list1')">뮤지컬</button>
+    <button onclick="showEvents('list2')">콘서트</button>
+    <button onclick="showEvents('list3')">스포츠</button>
+    <button onclick="showEvents('list4')">클래식</button>
+</div>
 
-<div class="content">
-    <div class="event">
-        <img src="https://via.placeholder.com/300x200" alt="Event Image">
-        <h2>뮤지컬 - 캣츠</h2>
-        <p>2024.10.01 ~ 2024.12.31</p>
+<!-- 콘텐츠 리스트들 -->
+<div id="event-lists">
+    <!-- 뮤지컬 리스트 -->
+    <div id="list1" class="content event-list">
+        <div class="event" onclick="selectItem(1)">
+            <img src="/images/kink.jpg" alt="Event Image">
+            <h2>뮤지컬 〈킹키부츠〉</h2>
+            <p>2024.09.07 ~2024.11.10</p>
+        </div>
+        <div class="event" onclick="selectItem(2)">
+            <img src="/images/gwang.jpg" alt="Event Image">
+            <h2>뮤지컬 〈광화문연가〉</h2>
+            <p>2024.10.23 ~2025.01.05</p>
+        </div>
+        <div class="event" onclick="selectItem(3)">
+            <img src="/images/wash.jpg" alt="Event Image">
+            <h2>뮤지컬 〈빨래〉</h2>
+            <p>2024.06.07 ~2024.12.29</p>
+        </div>
     </div>
 
-    <div class="event">
-        <img src="https://via.placeholder.com/300x200" alt="Event Image">
-        <h2>콘서트 - BTS</h2>
-        <p>2024.11.20 ~ 2024.11.22</p>
+    <!-- 콘서트 리스트 -->
+    <div id="list2" class="content event-list" style="display: none;">
+        <div class="event" onclick="selectItem(4)">
+        <img src="/images/cold.jpg" alt="Event Image">
+            <h2>콜드플레이 내한공연</h2>
+            <p>2025.04.16 ~2025.04.25</p>
+        </div>
+        <div class="event" onclick="selectItem(5)">
+        <img src="/images/ciga.jpg" alt="Event Image">
+            <h2>시가렛 애프터 섹스 내한공연</h2>
+            <p>2025.1.7 ~ 1.7</p>
+        </div>
+        <div class="event" onclick="selectItem(6)">
+        <img src="/images/roy.jpg" alt="Event Image">
+            <h2>2024 로이킴 콘서트 〈R♥y actually></h2>
+            <p>2024.12.07 ~2024.12.08</p>
+        </div>
     </div>
 
-    <div class="event">
-        <img src="https://via.placeholder.com/300x200" alt="Event Image">
-        <h2>전시회 - 반 고흐</h2>
-        <p>2024.09.15 ~ 2024.12.31</p>
+    <!-- 전시회 리스트 -->
+    <div id="list3" class="content event-list" style="display: none;">
+        <div class="event" onclick="selectItem(7)">
+            <img src="/images/base.jpg" alt="Event Image">
+            <h2>2024 플레이오프 4차전 LG vs 삼성</h2>
+            <p>2024.10.17 ~ 10.17</p>
+        </div>
+        <div class="event" onclick="selectItem(8)">
+            <img src="/images/icon.jpg" alt="Event Image">
+            <h2>2024 넥슨 아이콘 매치: 창과 방패 - FC SPEAR vs SHIELD UTD</h2>
+            <p>2024.10.20 ~ 10.20</p>
+        </div>
+        <div class="event" onclick="selectItem(9)">
+            <img src="/images/base.jpg" alt="Event Image">
+            <h2>2024 플레이오프 3차전 LG vs 삼성</h2>
+            <p>2024.10.16 ~ 10.16</p>
+        </div>
+    </div>
+
+    <div id="list4" class="content event-list" style="display: none;">
+        <div class="event" onclick="selectItem(10)">
+            <img src="/images/opera.jpg" alt="Event Image">
+            <h2>2024 오페라 투란도트 아레나 디 베로나 오리지널</h2>
+            <p>2024.10.12 ~2024.10.19</p>
+        </div>
+        <div class="event" onclick="selectItem(11)">
+            <img src="/images/woo.jpg" alt="Event Image">
+            <h2>콘체르토 마라톤 프로젝트 - 선우예권의 라흐마니노프 피아노 협주곡</h2>
+            <p>2024.10.15</p>
+        </div>
+        <div class="event" onclick="selectItem(12)">
+            <img src="/images/sal.jpg" alt="Event Image">
+            <h2>제4회 SAL 기획공연 ‘BETA’</h2>
+            <p>2024.11.08 ~2024.11.09</p>
+        </div>
     </div>
 </div>
 
+<h1>모아티켓 PLAY</h1>
+<div class="video-buttons">
+    <button onclick="showVideos('video1')">뮤지컬</button>
+    <button onclick="showVideos('video2')">콘서트</button>
+    <button onclick="showVideos('video3')">스포츠</button>
+    <button onclick="showVideos('video4')">클래식</button>
+</div>
+<div id="video1" class="content video-list" >
+<div class="video-container">
+    <iframe width="320" height="240" src="https://www.youtube.com/embed/yiD0-hCXxw8" frameborder="0" allowfullscreen></iframe>
+    <iframe width="320" height="240" src="https://www.youtube.com/embed/aKlWBROhO3o" frameborder="0" allowfullscreen></iframe>
+    <iframe width="320" height="240" src="https://www.youtube.com/embed/q5ZQSQZTbqk" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+<div id="video2" class="content video-list" style="display: none;">
+    <div class="video-container">
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/HosW0gulISQ" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/O-1FpjPP6_c" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/5Of2HNJa_gs" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+<div id="video3" class="content video-list" style="display: none;">
+    <div class="video-container">
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/dO_HtRbaUf4" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/IAzdj9jSfv0" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/rO0ahhCvJT8" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+<div id="video4" class="content video-list" style="display: none;">
+    <div class="video-container">
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/of659ZkzIkQ" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/qP9gE8Enxfo" frameborder="0" allowfullscreen></iframe>
+        <iframe width="320" height="240" src="https://www.youtube.com/embed/ZaHwguZCSuA" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<h1>베스트 관람후기</h1>
+<div class="review-list">
+    <div class="review-item">
+        <h3>뮤지컬 〈애니〉</h3>
+        <p class="review-content">정말 너무너무너무 힐링극<br>
+            정말 최고에요.. 왜 10월만 하는거죠? 더해주세요 ㅠㅠ 은영배우 너무 최고..... 앙상블 아가들도 최고... 강쥐도 너무 귀엽고.. 분위기도 넘버도 다 선물꾸러미에요 ㅠㅠ 행복했습니다</p>
+        <p class="review-author">beauty***</p>
+        <p class="review-rating">9.8</p>
+    </div>
+
+    <div class="review-item">
+        <h3>뮤지컬 〈부치하난〉</h3>
+        <p class="review-content">고래야 반가웠어<br>
+            전체적인 무대를 담기 위해 2층 앞열에서 재관람했어요. 보지 못했던 것들이나 놓치고 지나갔던 새로운 내용들이 눈에 들어오는 것이 신나고 재밌더라고요. 달라진 캐스트에서 오는 쾌감도 좋았어요. 연휴인데도 불구하고 배우분들께서 제게 선물을 주신 느낌이에요 ㅎㅎ 커튼콜때 커다란 고래가 제게 인사를 건네는 느낌도 받을 수 있으니 2층도 한번쯤은 추천드려요~^^</p>
+        <p class="review-author">aa8***</p>
+        <p class="review-rating">9</p>
+    </div>
+
+    <div class="review-item">
+        <h3>뮤지컬 〈경종수정실록〉</h3>
+        <p class="review-content">감동적인 이야기<br>
+            각자의 소명에 대한 끊임없는 의문을 던지는 세 명의 인물, 경종, 연잉군, 그리고 홍수찬의 고민들을 생생하게 엿볼 수 있는 극이었습니다. 갈등 속에서도 그들이 서로를 향해 보여주는 애틋한 마음에 절로 눈물이 나는, 가슴이 아리는 그런 감정을 느낄 수 있었습니다. 비록 어린 날의 모습과는 조금 달라졌지만 여전히 서로를 사랑하는 두 형제 경종과 연잉군의 모습을 보고 있노라면 저 역시도 내가 사랑하는 이들을 그렇게 사랑하고 있는지 다시 한번 돌아보게 되더군요. 세 배우의 열연 덕분에 너무나도 큰 감동을 받고 나올 수 있었습니다!!</p>
+        <p class="review-author">dayoun***</p>
+        <p class="review-rating">9.8</p>
+    </div>
+
+    <div class="review-item">
+        <h3>연극 〈‘고도를 기다리며’를 기다리며〉</h3>
+        <p class="review-content">우리는 언제나 고도에 목마르다<br>
+            인간으로 태어나 고도를 품어보지 않은 사람이 있을까? "실체없는 기다림" "삶을 살아가는 의미" "절망과 허무" 세상에 다양한 사람들의 삶의 모습이 있든 고도에 대한 해석 또한 다양할 것이다. 극을 본 후 문득 어느 무명 배우가 자신의 고민에 대해 털어 놓는 영상의 가장 공감을 많이 받은 댓글이 떠올랐는데 저분은 자신의 가능성있는 상태에 중독된 상태인 것 같다는 내용의 글이었다. 나도 내 신발이 한쌍 있다는 사실 하나만으로 나만의 고도를 향해 달려가다 수없는 장애물에 부딫힌 사람으로 극을 본 후 과거를 되짚어보는 시간을 가졌는데, 내가 꿈꾸는 이상을 이루기 위한 일련의 과정들을 자신이 이겨낼 수 있는 그릇인지도 모른채 달려갔기에 더욱더 고독했었던 것 같다. 그때 위험했던 시기가 나오지 않는 결과 객관적 평가들에 우울해 하다 나의 모난 마음이 주변 사람들에게 영향을 준다는 것을 자각하고 점점 동굴속에 틀어 박혔던 시간이었는데 무기력함에 아무것도 하지 않으면서 머릿속으론 언젠가 펼쳐질 내 장미빛 무대를 꿈꾸었었다. 고도가 나에게 스스로 와주기를 기다리는 그런... 준비된 사람이라면 그 무대에 설 기회가 노력이든 운이든 왔을때 확실히 내 것으로 만들수 있는 것을 알면서도 말이다. 그런 힘들었던 과거를 떠올리니 에스터의 처음에 난 신을 믿지 않아! 하는 대사가 나중에서야 공감이 됐다. 극의 제목만으로는 어렵지 않을까? 지루하지 않을까? 생각할 수 있겠지만, 자신만의 고도에 충분히 오르지 않았을까 생각하는 배우분들이 에스터와 밸 역을 맡아 자신만의 톤과 해석으로 캐릭터를 연기하는 것도 흥미로웠고 자신만의 고도를 가지고 달려가는 청춘, 어느 한 분야에서 사회적인 고도를 달성하고 또 다른 고도를 꿈꾸는 사람 또는 고도를 향해 달려가다 이런저런 이유로 부딫혀 잠시 쉬고있는 사람..등등 각기 사연을 가진 다양한 사람들이 공감할 수 있는 유쾌한 연극이었고 n차 관람을 해도 매번 다른 생각을 열어주는 시간을 만들어주는 좋은 연극이었다. 좋은 연극 무대에 세워주셔서 감사합니다!</p>
+        <p class="review-author">witch***</p>
+        <p class="review-rating">9.6</p>
+    </div>
+</div>
+
+
+
+
 <footer>
-    <p>&copy; 2024 모아티켓. All rights reserved.</p>
+    <p>© 2024 모아티켓. All rights reserved.</p>
 </footer>
 
 </body>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>결제하기</title>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7; /* 밝은 회색 배경 */
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* 하얀 배경 */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 200px;
+            height: auto;
+        }
+
+        h2 {
+            color: #ffcc00; /* 제목 색상 */
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .payment-info {
+            background-color: #fafafa; /* 결제 정보 배경색 */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #5d5d5d;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .amount {
+            font-weight: bold; /* 볼드 처리 */
+            font-size: 30px; /* 크기 키우기 */
+            text-align: right; /* 오른쪽 정렬 */
+            margin-top: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ffcc00; /* 노란색 버튼 */
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffa500; /* 버튼 호버 시 색상 변화 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-container">
+        <a href="/">
+            <img src="/images/logo.jpg" alt="logo">
+        </a>
+    </div>
+
+    <div class="payment-info">
+        <p>좌석:  [[${seatRow}]] 열 [[${seatNumber}]]번</p>
+        <p>등급:  [[${seatGrade}]] 등급</p>
+        <p>날짜:  [[${selectedDate}]]</p>
+        <p class="amount">[[${amount}]]원</p> <!-- 결제 금액 스타일 수정 -->
+    </div>
+
+    <button id="payBtn">결제 진행</button>
+</div>
+
+<script>
+    if (!window.IMP) {
+        var IMP = window.IMP;
+    }
+
+    IMP.init('imp60732868');  // Iamport API 키로 초기화
+
+    function requestPay(amount, grade, selectedDate, concertId) {
+        IMP.request_pay({
+            pg: 'kakaopay',
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '좌석 예매 - ' + grade + ' 등급',
+            amount: amount,
+            buyer_email: 'buyer@example.com',
+            buyer_name: '구매자',
+            buyer_tel: '010-1234-5678',
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456',
+            custom_data: { selectedDate: selectedDate, concertId: concertId }
+        }, function (rsp) {
+            if (rsp.success) {
+                fetch("/payment/complete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `price=${amount}&seatGrade=${grade}&userId=1&concertId=${concertId}`
+                }).then(response => {
+                    if (response.ok) {
+                        alert('티켓 예매가 완료되었습니다.');
+                        location.href = "/mypage";
+                    } else {
+                        alert('티켓 저장 중 문제가 발생했습니다.');
+                    }
+                });
+            } else {
+                alert('결제가 실패하였습니다. 오류 메시지: ' + rsp.error_msg);
+            }
+        });
+    }
+
+    document.getElementById("payBtn").addEventListener("click", function () {
+        const grade = "[[${seatGrade}]]";
+        const amount = [[${amount != null ? amount : 0}]];
+        const selectedDate = "[[${selectedDate}]]";
+
+        requestPay(amount, grade, selectedDate);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+
+/* 경기 정보 박스 스타일 */
+/* 경기 정보 박스 스타일 */
+#match-info {
+    display: flex;
+    align-items: flex-start; /* 이미지와 텍스트 정렬 */
+    border: 2px solid #fbc02d;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    background-color: #ffffff; /* 배경색 추가 */
+}
+
+/* 경기 정보 이미지 */
+.match-image {
+    max-width: 250px; /* 이미지 크기 조정 */
+    margin-right: 20px; /* 텍스트와의 간격 */
+    border-radius: 8px; /* 이미지 모서리 둥글게 */
+}
+
+h2 {
+    color: #333; /* 제목 색상 조정 */
+    margin-bottom: 10px;
+}
+
+.match-details {
+    flex-grow: 1;
+    font-family: 'Arial', sans-serif; /* 폰트 설정 */
+}
+
+p {
+    font-size: 16px; /* 폰트 크기 조정 */
+    color: #555; /* 텍스트 색상 조정 */
+    line-height: 1.5; /* 줄 간격 조정 */
+    margin: 5px 0; /* 단락 간격 */
+}
+
+
+ .match-infoi {
+     width: 100%; /* 너비 설정 */
+     max-width: 700px; /* 원하는 최대 너비 설정 */
+     margin: 0 auto; /* 가운데 정렬 */
+     display: block; /* 또는 flex, grid로 변경 가능 */
+ }
+
+/* 버튼 스타일 */
+button {
+    background-color: #ffd700;
+    color: #000;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #f57f17;
+}
+
+#ticket-selection {
+    position: fixed;
+    right: 10%; /* 화면 우측에 고정 */
+    top: 43%; /* 화면 중간에 고정 */
+    transform: translateY(-50%); /* 버튼을 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* 박스 안쪽 여백 */
+    background-color: #fff; /* 밝은 노란색 배경 */
+    border: 3px solid #fbc02d; /* 진한 노란색 테두리 */
+    border-radius: 15px; /* 둥근 모서리 */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* 그림자 */
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.logo-container img {
+    width: 200px; /* 이미지 크기를 조정 */
+    height: 30px;
+    height: auto;
+}
+
+.func-btn {
+    background-color: #f9f9f9; /* 배경색 설정 (예: 연한 회색) */
+    padding: 10px; /* 여백 추가 */
+    text-align: right; /* 오른쪽 정렬 */
+    border-bottom: 1px solid #ccc; /* 하단 구분선 추가 */
+
+}
+
+.func-btn a {
+    color: #545454; /* 링크 색상을 검은색으로 고정 */
+    text-decoration: none; /* 밑줄 제거 */
+    margin: 10px;
+}
+
+.func-btn a:hover,
+.func-btn a:visited,
+.func-btn a:active {
+    color: #545454; /* 링크 상태에 상관없이 항상 검은색 유지 */
+}
+.divider {
+    display: inline-block; /* 인라인 블록으로 설정 */
+    width: 1px; /* 구분선 두께 */
+    height: 20px; /* 구분선 높이 */
+    background-color: #ccc; /* 구분선 색상 */
+    margin: 0 10px; /* 구분선과 링크 간의 여백 */
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    text-align: center;
+}
+
+header h1 {
+    text-align: right;
+    margin: 0;
+    font-size: 24px;
+}
