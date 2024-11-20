@@ -154,7 +154,9 @@
         document.getElementById('selectedDate').value = dateElement.dataset.date;
 
         // 좌석표를 팝업으로 띄우기
-        location.href = `seatmap?date=${dateElement.dataset.date}`
+        const url = `seatmap?date=${dateElement.dataset.date}`;
+        const popupOptions = "width=900,height=950,scrollbars=yes,resizable=yes";
+        window.open(url, "SeatMapPopup", popupOptions);
     }
 </script>
 
