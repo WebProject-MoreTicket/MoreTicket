@@ -9,13 +9,13 @@
 <div class="func-btn">
     <div th:if="${session.loggedInUser == null}">
         <a href="/login">로그인</a>
-        <span class="divider"></span> <!-- 구분선 추가 -->
+        <span class="divider"></span>
         <a href="/signup">회원가입</a>
     </div>
     <div th:if="${session.loggedInUser != null}">
         <span th:text="'환영합니다 , ' + ${session.loggedInUser.username} + '!'"></span>
         <a href="mypage">마이페이지</a>
-        <span class="divider"></span> <!-- 구분선 추가 -->
+        <span class="divider"></span>
         <a href="/logout">로그아웃</a>
     </div>
 </div>
@@ -27,6 +27,26 @@
         </a>
     </div>
 </header>
+
+<!-- 상단 이미지 카드 -->
+<div class="image-card-container">
+    <div class="image-card">
+        <img src="/images/Cls1.png" alt="Card 1">
+        <div class="card-text">히사이시 조 영화음악 콘서트 2024</div>
+    </div>
+    <div class="image-card">
+        <img src="/images/Cls2.png" alt="Card 2">
+        <div class="card-text">신카이 마코토 공식 하이라이트 필름콘서트</div>
+    </div>
+    <div class="image-card">
+        <img src="/images/Cls3.png" alt="Card 3">
+        <div class="card-text">사라 장 바이올린 리사이틀 - 전국</div>
+    </div>
+    <div class="image-card">
+        <img src="/images/Cls4.png" alt="Card 4">
+        <div class="card-text2">크리스마스 디즈니 & 픽사 OST 콘서트</div>
+    </div>
+</div>
 
 <!-- 경기 목록 -->
 <ul id="match-list">
@@ -58,6 +78,7 @@
         <button type="button" onclick="selectItem(12)">예매하기</button>
     </li>
 </ul>
+</body>
 
 <script>
     function selectItem(itemId) {
@@ -66,5 +87,5 @@
     }
 </script>
 
-</body>
+
 </html>
